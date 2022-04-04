@@ -15,10 +15,10 @@ export const Profile = () => {
                 <div>
                     New posts
                 </div>
-                <div>
+                <div className={cl.item}>
                     post 1
                 </div>
-                <div>
+                <div className={cl.item}>
                     post 2
                 </div>
             </div>
