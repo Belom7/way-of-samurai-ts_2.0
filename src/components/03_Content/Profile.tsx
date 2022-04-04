@@ -1,7 +1,7 @@
 import React from 'react';
-import cl from './Content.module.css'
+import cl from './Profile.module.css'
 
-export const Content = () => {
+export const Profile = () => {
     return (
         <div className={cl.content}>
             <div>
