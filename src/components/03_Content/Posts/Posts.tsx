@@ -15,10 +15,11 @@ export const Posts = () => {
                 </div>
             </div>
             <div className={cl.posts}>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
+                <Post name={'Maks'} message={'Hi people!'} likeCount={200}/>
+                <Post name={'Denis'} message={'x'} likeCount={20}/>
+                <Post name={'Mark'} message={'wow!'} likeCount={10}/>
+                <Post name={'Alex'} message={'perfecto!'} likeCount={50}/>
+
             </div>
 
         </div>
