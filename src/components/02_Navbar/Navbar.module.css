@@ -1,3 +1,11 @@
-.navbar{
+.navbar {
     grid-area: n;
+}
+
+.navbar a {
+    color: black;
+}
+
+.navbar a.active {
+    color: gold;
 }
