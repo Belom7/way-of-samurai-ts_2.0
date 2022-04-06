@@ -1,43 +1,24 @@
 import React from 'react';
 import cl from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
+import {Dialog} from "./01_Dialog/Dialog";
+import {Message} from "./02_Message/Message";
 
 export const Dialogs = () => {
     return (
         <div className={cl.dialogs}>
             <div className={cl.dialogsItems}>
-                <div className={cl.item + ' ' + cl.active}>
-                    <NavLink to='/messages/1'>Maks</NavLink>
-                </div>
-                <div className={cl.item}>
-                    <NavLink to='/messages/2'>Viktor</NavLink>
-                </div>
-                <div className={cl.item}>
-                    <NavLink to='/messages/3'>Egor</NavLink>
-                </div>
-                <div className={cl.item}>
-                    <NavLink to='/messages/4'>Evgeniy</NavLink>
-                </div>
-                <div className={cl.item}>
-                    <NavLink to='/messages/5'>Sasha</NavLink>
-                </div>
+                <Dialog name={'Maks'} id={1}/>
+                <Dialog name={'Alex'} id={2}/>
+                <Dialog name={'Mikki'} id={3}/>
+                <Dialog name={'Jax'} id={4}/>
+                <Dialog name={'Xioru'} id={5}/>
             </div>
             <div className={cl.messageItems}>
-                <div className={cl.message}>
-                    Здарова мужик!
-                </div>
-                <div className={cl.message}>
-                    Как дела?
-                </div>
-                <div className={cl.message}>
-                    Хо-хо-хо!
-                </div>
-                <div className={cl.message}>
-                    .........
-                </div>
-                <div className={cl.message}>
-                    Ничего страшного!
-                </div>
+                <Message message={'Здарова мужик!'}/>
+                <Message message={'Как дела?'}/>
+                <Message message={'Хо-хо-хо!'}/>
+                <Message message={'.........'}/>
+                <Message message={'Ничего страшного!'}/>
             </div>
         </div>
     );
