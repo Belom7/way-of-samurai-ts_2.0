@@ -2,14 +2,12 @@ import React from 'react';
 import cl from "./Posts.module.css";
 import {Post} from "./Post/Post";
 
-export const Posts = () => {
-    const posts = [
-        {name:'Maks', message: 'Hi people!', likeCount:200},
-        {name:'Denis', message: 'x', likeCount:20},
-        {name:'Mark', message: 'wow!', likeCount:10},
-        {name:'Alex', message: 'perfecto!', likeCount:50},
-        {name:'Gera', message: 'rrrr!', likeCount:50},
-    ]
+type PostsPropsType = {
+    posts:{name: string, message: string, likeCount: number}[]
+}
+
+export const Posts = (props:PostsPropsType) => {
+
     return (
         <div>
             My posts
@@ -22,7 +20,7 @@ export const Posts = () => {
                 </div>
             </div>
             <div className={cl.posts}>
-                {posts.map((post,i)=><Post key={i} name={post.name} message={post.message} likeCount={post.likeCount}/>)}
+                {props.posts.map((post,i)=><Post key={i} name={post.name} message={post.message} likeCount={post.likeCount}/>)}
             </div>
 
         </div>
