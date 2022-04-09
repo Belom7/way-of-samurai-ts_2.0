@@ -8,11 +8,19 @@ import {Route, Routes} from "react-router-dom";
 import {Music} from "./components/03_Content/04_Music/Music";
 import {News} from "./components/03_Content/03_News/News";
 
-
-type AppPropsType = {
+export type profilePageType = {
     posts: { name: string, message: string, likeCount: number }[]
+}
+export type dialogsPageType = {
     dialogsName: { id: number, name: string }[]
     messages: { message: string }[]
+}
+type StateType = {
+    profilePage:profilePageType
+    dialogsPage:dialogsPageType
+}
+type AppPropsType={
+    state:StateType
 }
 
 function App(props: AppPropsType) {
@@ -22,9 +30,9 @@ function App(props: AppPropsType) {
             <Navbar/>
             <div className='App-wrapper-content'>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile posts={props.posts}/>}/>
+                    <Route path={'/profile'} element={<Profile profilePage={props.state.profilePage}/>}/>
                     <Route path={'/messages'}
-                           element={<Dialogs dialogsName={props.dialogsName} messages={props.messages}/>}/>
+                           element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                 </Routes>

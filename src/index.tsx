@@ -4,32 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
+import {state} from './Redux/state'
 
-const posts = [
-    {name: 'Maks', message: 'Hi people!', likeCount: 200},
-    {name: 'Denis', message: 'x', likeCount: 20},
-    {name: 'Mark', message: 'wow!', likeCount: 10},
-    {name: 'Alex', message: 'perfecto!', likeCount: 50},
-    {name: 'Gera', message: 'rrrr!', likeCount: 50},
-]
-const dialogsName = [
-    {id: 1, name: 'Maks'},
-    {id: 2, name: 'Alex'},
-    {id: 3, name: 'Mikki'},
-    {id: 4, name: 'Jax'},
-    {id: 5, name: 'Xioru'},
-]
-const messages = [
-    {message: 'Здарова мужик!'},
-    {message: 'Как дела?'},
-    {message: 'Хо-хо-хо!'},
-    {message: 'Ничего страшного!'},
-    {message: '.........'}
-]
 
 ReactDOM.render(
     <BrowserRouter>
-        <App posts={posts} dialogsName={dialogsName} messages={messages}/>
+        <App state={state}/>
     </BrowserRouter>,
     document.getElementById('root')
 );
