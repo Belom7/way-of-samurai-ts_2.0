@@ -9,19 +9,21 @@ import {Music} from "./components/03_Content/04_Music/Music";
 import {News} from "./components/03_Content/03_News/News";
 
 export type profilePageType = {
+    newMessage:string
     posts: { name: string, message: string, likeCount: number }[]
 }
 export type dialogsPageType = {
     dialogsName: { id: number, name: string }[]
     messages: { message: string }[]
 }
-type StateType = {
+export type StateType = {
     profilePage: profilePageType
     dialogsPage: dialogsPageType
 }
 type AppPropsType = {
     state: StateType
     addPost: (value:string) => void
+    changeNewMessage:(value: string)=>void
 }
 
 function App(props: AppPropsType) {
@@ -32,7 +34,7 @@ function App(props: AppPropsType) {
             <div className='App-wrapper-content'>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile profilePage={props.state.profilePage} addPost={props.addPost}/>}/>
+                           element={<Profile profilePage={props.state.profilePage} addPost={props.addPost} changeNewMessage={props.changeNewMessage}/>}/>
                     <Route path={'/messages'}
                            element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
