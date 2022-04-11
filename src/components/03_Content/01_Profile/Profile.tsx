@@ -6,13 +6,14 @@ import {profilePageType} from "../../../App";
 
 type ProfilePropsType = {
     profilePage:profilePageType
+    addPost:(value:string)=>void
 }
 
 export const Profile = (props:ProfilePropsType) => {
     return (
         <div className={cl.content}>
             <ProfileInfo/>
-            <Posts posts={props.profilePage.posts}/>
+            <Posts posts={props.profilePage.posts} addPost={props.addPost}/>
         </div>
     );
 };

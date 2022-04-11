@@ -6,10 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {state} from './Redux/state'
 
+const addPost = (value:string) => {
+    let newPost = {name: 'NEW', message: value, likeCount: 10}
+    state.profilePage.posts.push(newPost)
+}
 
 ReactDOM.render(
     <BrowserRouter>
-        <App state={state}/>
+        <App state={state} addPost={addPost}/>
     </BrowserRouter>,
     document.getElementById('root')
 );

@@ -4,13 +4,14 @@ import {Post} from "./Post/Post";
 
 type PostsPropsType = {
     posts:{name: string, message: string, likeCount: number}[]
+    addPost:(value:string)=>void
 }
 
 export const Posts = (props:PostsPropsType) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const onClickAddPostHandler = () => {
-        console.log(newPostElement.current?.value)
+        props.addPost(newPostElement.current? newPostElement.current.value: '')
     }
 
     return (
@@ -18,7 +19,7 @@ export const Posts = (props:PostsPropsType) => {
             My posts
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea ref={newPostElement}>21</textarea>
                 </div>
                 <div>
                     <button onClick={onClickAddPostHandler}>Add post</button>

@@ -16,11 +16,12 @@ export type dialogsPageType = {
     messages: { message: string }[]
 }
 type StateType = {
-    profilePage:profilePageType
-    dialogsPage:dialogsPageType
+    profilePage: profilePageType
+    dialogsPage: dialogsPageType
 }
-type AppPropsType={
-    state:StateType
+type AppPropsType = {
+    state: StateType
+    addPost: (value:string) => void
 }
 
 function App(props: AppPropsType) {
@@ -30,7 +31,8 @@ function App(props: AppPropsType) {
             <Navbar/>
             <div className='App-wrapper-content'>
                 <Routes>
-                    <Route path={'/profile'} element={<Profile profilePage={props.state.profilePage}/>}/>
+                    <Route path={'/profile'}
+                           element={<Profile profilePage={props.state.profilePage} addPost={props.addPost}/>}/>
                     <Route path={'/messages'}
                            element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
