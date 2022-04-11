@@ -8,15 +8,20 @@ type PostsPropsType = {
 
 export const Posts = (props:PostsPropsType) => {
 
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+    const onClickAddPostHandler = () => {
+        console.log(newPostElement.current?.value)
+    }
+
     return (
         <div>
             My posts
             <div>
                 <div>
-                    <textarea>1</textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={onClickAddPostHandler}>Add post</button>
                 </div>
             </div>
             <div className={cl.posts}>
