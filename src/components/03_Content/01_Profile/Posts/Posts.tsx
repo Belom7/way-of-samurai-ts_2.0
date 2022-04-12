@@ -4,15 +4,14 @@ import {Post} from "./Post/Post";
 
 type PostsPropsType = {
     profilePage:{newMessage:string, posts: { name: string, message: string, likeCount: number }[]}
-    addPost: (value: string) => void
+    addPost: () => void
     changeNewMessage: (value: string) => void
 }
 
 export const Posts = (props: PostsPropsType) => {
 
     const onClickAddPostHandler = () => {
-        props.addPost(props.profilePage.newMessage)
-        props.changeNewMessage('')
+        props.addPost()
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeNewMessage(e.currentTarget.value)

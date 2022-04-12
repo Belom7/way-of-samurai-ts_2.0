@@ -22,7 +22,7 @@ export type StateType = {
 }
 type AppPropsType = {
     state: StateType
-    addPost: (value:string) => void
+    addPost: () => void
     changeNewMessage:(value: string)=>void
 }
 

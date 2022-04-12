@@ -6,7 +6,7 @@ import {profilePageType} from "../../../App";
 
 type ProfilePropsType = {
     profilePage:profilePageType
-    addPost:(value:string)=>void
+    addPost:()=>void
     changeNewMessage:(value: string)=>void
 }
 

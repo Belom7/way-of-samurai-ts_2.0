@@ -1,8 +1,9 @@
 import {rerender} from "../rerender";
 
-export const addPost = (value: string) => {
-    let newPost = {name: 'NEW', message: value, likeCount: 10}
+export const addPost = () => {
+    let newPost = {name: 'NEW', message: state.profilePage.newMessage, likeCount: 10}
     state.profilePage.posts.push(newPost)
+    state.profilePage.newMessage=''
     rerender(state)
 }
 export const changeNewMessage = (value: string) => {
