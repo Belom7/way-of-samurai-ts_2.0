@@ -1,14 +1,18 @@
-import {rerender} from "../rerender";
+let rerender = () => {}
 
 export const addPost = () => {
     let newPost = {name: 'NEW', message: state.profilePage.newMessage, likeCount: 10}
     state.profilePage.posts.push(newPost)
-    state.profilePage.newMessage=''
-    rerender(state)
+    state.profilePage.newMessage = ''
+    rerender()
 }
 export const changeNewMessage = (value: string) => {
     state.profilePage.newMessage = value
-    rerender(state)
+    rerender()
+}
+
+export const subscribe = (observer: () => void) => {
+    rerender = observer
 }
 
 export const state = {
