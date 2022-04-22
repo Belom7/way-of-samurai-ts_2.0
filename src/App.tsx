@@ -7,9 +7,10 @@ import {Dialogs} from "./components/03_Content/02_Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
 import {Music} from "./components/03_Content/04_Music/Music";
 import {News} from "./components/03_Content/03_News/News";
+import {StoreType} from "./Redux/store";
 
 export type profilePageType = {
-    newMessage:string
+    newMessage: string
     posts: { name: string, message: string, likeCount: number }[]
 }
 export type dialogsPageType = {
@@ -21,10 +22,9 @@ export type StateType = {
     dialogsPage: dialogsPageType
 }
 type AppPropsType = {
-    state: StateType
-    addPost: () => void
-    changeNewMessage:(value: string)=>void
+    store: StoreType
 }
+
 
 function App(props: AppPropsType) {
     return (
@@ -34,9 +34,11 @@ function App(props: AppPropsType) {
             <div className='App-wrapper-content'>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile profilePage={props.state.profilePage} addPost={props.addPost} changeNewMessage={props.changeNewMessage}/>}/>
+                           element={<Profile profilePage={props.store.getState().profilePage}
+                                             addPost={props.store.addPost.bind(props.store)}
+                                             changeNewMessage={props.store.changeNewMessage.bind(props.store)}/>}/>
                     <Route path={'/messages'}
-                           element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
+                           element={<Dialogs dialogsPage={props.store.getState().dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                 </Routes>

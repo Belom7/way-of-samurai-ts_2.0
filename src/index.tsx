@@ -3,21 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {addPost, changeNewMessage, state, subscribe} from "./Redux/state";
+import {store} from "./Redux/store";
 import reportWebVitals from "./reportWebVitals";
 
 
 export const rerender = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} addPost={addPost} changeNewMessage={changeNewMessage}/>
+            <App store={store}/>
         </BrowserRouter>,
         document.getElementById('root')
     );
 }
 
 rerender()
-subscribe(rerender)
+store.subscribe(rerender)
 
 
 // If you want to start measuring performance in your app, pass a function
