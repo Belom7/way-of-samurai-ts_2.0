@@ -17,10 +17,8 @@ export type dialogsPageType = {
     dialogsName: { id: number, name: string }[]
     messages: { message: string }[]
 }
-export type StateType = {
-    profilePage: profilePageType
-    dialogsPage: dialogsPageType
-}
+
+
 type AppPropsType = {
     store: StoreType
 }
@@ -34,9 +32,9 @@ function App(props: AppPropsType) {
             <div className='App-wrapper-content'>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile profilePage={props.store.getState().profilePage}
-                                             addPost={props.store.addPost.bind(props.store)}
-                                             changeNewMessage={props.store.changeNewMessage.bind(props.store)}/>}/>
+                           element={<Profile profilePage={props.store._state.profilePage}
+                                             dispatch={props.store.dispatch.bind(props.store)}
+                           />}/>
                     <Route path={'/messages'}
                            element={<Dialogs dialogsPage={props.store.getState().dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>

@@ -1,20 +1,20 @@
 import React, {ChangeEvent} from 'react';
 import cl from "./Posts.module.css";
 import {Post} from "./Post/Post";
+import {ActionType} from "../../../../Redux/store";
 
 type PostsPropsType = {
-    profilePage:{newMessage:string, posts: { name: string, message: string, likeCount: number }[]}
-    addPost: () => void
-    changeNewMessage: (value: string) => void
+    profilePage: { newMessage: string, posts: { name: string, message: string, likeCount: number }[] }
+    dispatch: (action: ActionType) => void
 }
 
 export const Posts = (props: PostsPropsType) => {
 
     const onClickAddPostHandler = () => {
-        props.addPost()
+        props.dispatch({type: 'ADD-POST', newMessage: props.profilePage.newMessage})
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessage(e.currentTarget.value)
+        props.dispatch({type: 'CHANGE-NEW-MESSAGE', value: e.currentTarget.value})
     }
 
     return (
@@ -30,9 +30,8 @@ export const Posts = (props: PostsPropsType) => {
             </div>
             <div className={cl.posts}>
                 {props.profilePage.posts.map((post, i) => <Post key={i} name={post.name} message={post.message}
-                                                    likeCount={post.likeCount}/>)}
+                                                                likeCount={post.likeCount}/>)}
             </div>
-
         </div>
     );
 };

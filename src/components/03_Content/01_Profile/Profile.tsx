@@ -3,18 +3,18 @@ import cl from './Profile.module.css'
 import {Posts} from "./Posts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {profilePageType} from "../../../App";
+import {ActionType} from "../../../Redux/store";
 
 type ProfilePropsType = {
     profilePage:profilePageType
-    addPost:()=>void
-    changeNewMessage:(value: string)=>void
+    dispatch: (action: ActionType) => void
 }
 
 export const Profile = (props:ProfilePropsType) => {
     return (
         <div className={cl.content}>
             <ProfileInfo/>
-            <Posts profilePage={props.profilePage} addPost={props.addPost} changeNewMessage={props.changeNewMessage}/>
+            <Posts profilePage={props.profilePage} dispatch={props.dispatch}/>
         </div>
     );
 };
