@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD-POST';
+const CHANGE_NEW_MESSAGE = 'CHANGE-NEW-MESSAGE';
+
 type StateType = {
     profilePage: {
         newMessage: string,
@@ -14,21 +17,25 @@ export type StoreType = {
     _callSubscriber: () => void
     getState: () => StateType
     subscribe: (observer: () => void) => void
-    dispatch:(action:ActionType)=>void
+    dispatch: (action: ActionType) => void
 
 }
 
 type AddPostType = {
     type: 'ADD-POST'
-    newMessage:string
+    newMessage: string
 }
 type ChangeNewMessageType = {
     type: 'CHANGE-NEW-MESSAGE'
-    value:string
+    value: string
 }
 export type ActionType = AddPostType | ChangeNewMessageType
 
-export let store:StoreType = {
+export const AddPostAC = (newMessage: string): AddPostType => ({type: ADD_POST, newMessage})
+export const UpdateNewPostTextAC = (value: string): ChangeNewMessageType => ({type: CHANGE_NEW_MESSAGE, value})
+
+
+export let store: StoreType = {
     _state: {
         profilePage: {
             newMessage: '',
@@ -68,15 +75,14 @@ export let store:StoreType = {
         this._callSubscriber = observer
     },
 
-    dispatch(action: ActionType){
-        if(action.type === 'ADD-POST'){
+    dispatch(action: ActionType) {
+        if (action.type === 'ADD-POST') {
             let newPost = {name: 'NEW', message: action.newMessage, likeCount: 10}
             debugger
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newMessage = ''
             this._callSubscriber()
-        }
-        else if(action.type === 'CHANGE-NEW-MESSAGE'){
+        } else if (action.type === 'CHANGE-NEW-MESSAGE') {
             debugger
             this._state.profilePage.newMessage = action.value
             this._callSubscriber()
