@@ -9,15 +9,6 @@ import {Music} from "./components/03_Content/04_Music/Music";
 import {News} from "./components/03_Content/03_News/News";
 import {StoreType} from "./Redux/store";
 
-export type profilePageType = {
-    newMessage: string
-    posts: { name: string, message: string, likeCount: number }[]
-}
-export type dialogsPageType = {
-    dialogsName: { id: number, name: string }[]
-    messages: { message: string }[]
-}
-
 
 type AppPropsType = {
     store: StoreType
@@ -36,7 +27,9 @@ function App(props: AppPropsType) {
                                              dispatch={props.store.dispatch.bind(props.store)}
                            />}/>
                     <Route path={'/messages'}
-                           element={<Dialogs dialogsPage={props.store.getState().dialogsPage}/>}/>
+                           element={<Dialogs dialogsPage={props.store.getState().dialogsPage}
+                                             dispatch={props.store.dispatch.bind(props.store)}
+                           />}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                 </Routes>

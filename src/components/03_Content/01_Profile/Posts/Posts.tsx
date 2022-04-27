@@ -24,7 +24,7 @@ export const Posts = (props: PostsPropsType) => {
             My posts
             <div>
                 <div>
-                    <textarea value={props.profilePage.newMessage} onChange={onChangeHandler}></textarea>
+                    <textarea value={props.profilePage.newMessage} onChange={onChangeHandler}/>
                 </div>
                 <div>
                     <button onClick={onClickAddPostHandler}>Add post</button>
