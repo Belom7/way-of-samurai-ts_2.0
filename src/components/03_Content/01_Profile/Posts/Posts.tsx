@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import cl from "./Posts.module.css";
 import {Post} from "./Post/Post";
-import {ActionType, AddPostAC, UpdateNewPostTextAC} from "../../../../Redux/store";
+import {ActionType} from "../../../../Redux/store";
+import {AddPostAC, UpdateNewPostTextAC} from "../../../../Redux/profile_reducer";
 
 type PostsPropsType = {
     profilePage: { newMessage: string, posts: { name: string, message: string, likeCount: number }[] }

@@ -1,7 +1,7 @@
-const ADD_POST = 'ADD-POST';
-const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
+import {profileReducer} from "./profile_reducer";
+import {dialogsReducer} from "./dialogs_reducer";
+
+
 
 export type profilePageType = {
     newMessage: string
@@ -27,19 +27,19 @@ export type StoreType = {
 
 }
 
-type AddPostType = {
+export type AddPostType = {
     type: 'ADD-POST'
     newMessage: string
 }
-type ChangeNewPostTextType = {
+export type ChangeNewPostTextType = {
     type: 'CHANGE-NEW-POST-TEXT'
     value: string
 }
-type AddMessageType = {
+export type AddMessageType = {
     type: 'ADD-MESSAGE',
     newMessage: string
 }
-type ChangeNewMessageTextType = {
+export type ChangeNewMessageTextType = {
     type: 'CHANGE-NEW-MESSAGE-TEXT',
     value: string
 }
@@ -48,10 +48,7 @@ export type ActionType = AddPostType
     | AddMessageType
     | ChangeNewMessageTextType
 
-export const AddPostAC = (newMessage: string): AddPostType => ({type: ADD_POST, newMessage})
-export const UpdateNewPostTextAC = (value: string): ChangeNewPostTextType => ({type: CHANGE_NEW_POST_TEXT, value})
-export const AddMessageAC = (newMessage: string):AddMessageType => ({type: ADD_MESSAGE, newMessage})
-export const UpdateNewMessageTextAC = (value: string):ChangeNewMessageTextType => ({type: CHANGE_NEW_MESSAGE_TEXT, value})
+
 
 
 export let store: StoreType = {
@@ -96,26 +93,9 @@ export let store: StoreType = {
     },
 
     dispatch(action: ActionType) {
-        if (action.type === 'ADD-POST') {
-            let newPost = {name: 'NEW', message: action.newMessage, likeCount: 10}
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newMessage = ''
-            this._callSubscriber()
-        }
-        if (action.type === 'CHANGE-NEW-POST-TEXT') {
-            this._state.profilePage.newMessage = action.value
-            this._callSubscriber()
-        }
-        if (action.type === 'ADD-MESSAGE') {
-            const newMessage = {message: action.newMessage}
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubscriber()
-        }
-        if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
-            this._state.dialogsPage.newMessageText = action.value
-            this._callSubscriber()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._callSubscriber()
     }
 }
 
