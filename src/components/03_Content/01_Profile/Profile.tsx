@@ -1,19 +1,18 @@
 import React from 'react';
 import cl from './Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionType, profilePageType} from "../../../Redux/store";
 import {PostsContainer} from "./Posts/PostsContainer";
+import {StoreContext} from "../../../StoreContext";
 
-type ProfilePropsType = {
-    profilePage:profilePageType
-    dispatch: (action: ActionType) => void
-}
-
-export const Profile = (props:ProfilePropsType) => {
+export const Profile = () => {
     return (
         <div className={cl.content}>
             <ProfileInfo/>
-            <PostsContainer profilePage={props.profilePage} dispatch={props.dispatch}/>
+            <StoreContext.Consumer>
+                {(store) => (
+                    <PostsContainer profilePage={store.getState().profilePage} dispatch={store.dispatch}/>
+                )}
+            </StoreContext.Consumer>
         </div>
     );
 };
