@@ -1,12 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import cl from "./Posts.module.css";
 import {Post} from "./Post/Post";
-import {ActionType} from "../../../../Redux/store";
-import {AddPostAC, UpdateNewPostTextAC} from "../../../../Redux/profile_reducer";
 
 type PostsPropsType = {
     profilePage: { newMessage: string, posts: { name: string, message: string, likeCount: number }[] }
-    dispatch: (action: ActionType) => void
+    onClickAddPostHandler : (newMessage:string) => void
+    onChangeHandler : (value:string) => void
 }
 
 
@@ -14,10 +13,10 @@ export const Posts = (props: PostsPropsType) => {
 
     const onClickAddPostHandler = () => {
         let newMessage = props.profilePage.newMessage
-        props.dispatch(AddPostAC(newMessage))
+        props.onClickAddPostHandler(newMessage)
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(UpdateNewPostTextAC(e.currentTarget.value))
+        props.onChangeHandler(e.currentTarget.value)
     }
 
     return (
