@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {store} from "./Redux/store";
+import {store} from "./Redux/redux-store";
 import reportWebVitals from "./reportWebVitals";
 
 
 export const rerender = () => {
+    debugger
     ReactDOM.render(
         <BrowserRouter>
             <App store={store}/>

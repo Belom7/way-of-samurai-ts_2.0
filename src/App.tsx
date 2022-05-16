@@ -16,6 +16,7 @@ type AppPropsType = {
 
 
 function App(props: AppPropsType) {
+    debugger
     return (
         <div className="App-wrapper">
             <Header/>
@@ -23,7 +24,7 @@ function App(props: AppPropsType) {
             <div className='App-wrapper-content'>
                 <Routes>
                     <Route path={'/profile'}
-                           element={<Profile profilePage={props.store._state.profilePage}
+                           element={<Profile profilePage={props.store.getState().profilePage}
                                              dispatch={props.store.dispatch.bind(props.store)}
                            />}/>
                     <Route path={'/messages'}

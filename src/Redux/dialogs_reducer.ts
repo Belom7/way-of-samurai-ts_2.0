@@ -3,7 +3,25 @@ import {ActionType, AddMessageType, ChangeNewMessageTextType, dialogsPageType} f
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
 
-export const dialogsReducer = (state: dialogsPageType, action: ActionType) => {
+let initialState = {
+    dialogsName: [
+        {id: 1, name: 'Maks'},
+        {id: 2, name: 'Alex'},
+        {id: 3, name: 'Mikki'},
+        {id: 4, name: 'Jax'},
+        {id: 5, name: 'Xioru'},
+    ],
+    messages: [
+        {message: 'Здарова мужик!'},
+        {message: 'Как дела?'},
+        {message: 'Хо-хо-хо!'},
+        {message: 'Ничего страшного!'},
+        {message: '.........'}
+    ],
+    newMessageText: ''
+}
+
+export const dialogsReducer = (state: dialogsPageType = initialState, action: ActionType) => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage = {message: action.newMessage}
