@@ -3,9 +3,9 @@ import {ActionType, AddPostType, ChangeNewPostTextType, profilePageType} from ".
 const ADD_POST = 'ADD-POST';
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 
-let initialState =  {
+let initialState = {
     newMessage: '',
-        posts: [
+    posts: [
         {name: 'Maks', message: 'Hi people!', likeCount: 200},
         {name: 'Denis', message: 'x', likeCount: 20},
         {name: 'Mark', message: 'wow!', likeCount: 10},
@@ -18,12 +18,16 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
     switch (action.type) {
         case ADD_POST :
             let newPost = {name: 'NEW', message: action.newMessage, likeCount: 10}
-            state.posts.push(newPost)
-            state.newMessage = ''
-            return state
+            return {
+                ...state,
+                posts: [newPost, ...state.posts],
+                newMessage: ''
+            }
         case CHANGE_NEW_POST_TEXT :
-            state.newMessage = action.value
-            return state
+            return {
+                ...state,
+                newMessage: action.value
+            }
         default:
             return state
     }
