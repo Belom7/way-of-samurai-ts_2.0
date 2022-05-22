@@ -1,8 +1,6 @@
 import {profileReducer} from "./profile_reducer";
 import {dialogsReducer} from "./dialogs_reducer";
 
-
-
 export type profilePageType = {
     newMessage: string
     posts: { name: string, message: string, likeCount: number }[]
@@ -13,7 +11,7 @@ export type dialogsPageType = {
     newMessageText: string
 }
 
-type StateType = {
+export type StateType = {
     profilePage: profilePageType
     dialogsPage: dialogsPageType
 }
@@ -51,7 +49,7 @@ export type ActionType = AddPostType
 
 
 
-export let store: StoreType = {
+export let store: any = {
     _state: {
         profilePage: {
             newMessage: '',

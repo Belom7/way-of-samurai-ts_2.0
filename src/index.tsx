@@ -5,16 +5,16 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {store} from "./Redux/redux-store";
 import reportWebVitals from "./reportWebVitals";
-import {StoreContext} from "./StoreContext";
+import {Provider} from "react-redux";
 
 
 export const rerender = () => {
     debugger
     ReactDOM.render(
         <BrowserRouter>
-            <StoreContext.Provider value={store}>
+            <Provider store={store}>
                 <App/>
-            </StoreContext.Provider>
+            </Provider>
 
         </BrowserRouter>,
         document.getElementById('root')
