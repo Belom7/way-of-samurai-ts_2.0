@@ -30,7 +30,8 @@ export const dialogsReducer = (state: dialogsPageType = initialState, action: Ac
                 messages: [...state.messages, newMessage],
                 newMessageText: ''
             }
-        case CHANGE_NEW_MESSAGE_TEXT:
+        case
+        CHANGE_NEW_MESSAGE_TEXT:
             return {
                 ...state,
                 newMessageText: action.value
