@@ -1,22 +1,22 @@
 import {profileReducer} from "./profile_reducer";
 import {dialogsReducer} from "./dialogs_reducer";
 
-export type profilePageType = {
+type profilePageType = {
     newMessage: string
     posts: { name: string, message: string, likeCount: number }[]
 }
-export type dialogsPageType = {
+type dialogsPageType = {
     dialogsName: { id: number, name: string }[]
     messages: { message: string }[]
     newMessageText: string
 }
 
-export type StateType = {
+type StateType = {
     profilePage: profilePageType
     dialogsPage: dialogsPageType
 }
 
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     getState: () => StateType
@@ -25,23 +25,23 @@ export type StoreType = {
 
 }
 
-export type AddPostType = {
+type AddPostType = {
     type: 'ADD-POST'
     newMessage: string
 }
-export type ChangeNewPostTextType = {
+type ChangeNewPostTextType = {
     type: 'CHANGE-NEW-POST-TEXT'
     value: string
 }
-export type AddMessageType = {
+type AddMessageType = {
     type: 'ADD-MESSAGE',
     newMessage: string
 }
-export type ChangeNewMessageTextType = {
+type ChangeNewMessageTextType = {
     type: 'CHANGE-NEW-MESSAGE-TEXT',
     value: string
 }
-export type ActionType = AddPostType
+type ActionType = AddPostType
     | ChangeNewPostTextType
     | AddMessageType
     | ChangeNewMessageTextType
@@ -91,8 +91,8 @@ export let store: any = {
     },
 
     dispatch(action: ActionType) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        // this._state.profilePage = profileReducer(this._state.profilePage, action)
+        // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._callSubscriber()
     }
 }

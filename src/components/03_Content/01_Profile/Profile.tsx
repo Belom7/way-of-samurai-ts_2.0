@@ -1,11 +1,11 @@
 import React from 'react';
 import cl from './Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {StateType} from "../../../Redux/store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {AddPostAC, UpdateNewPostTextAC} from "../../../Redux/profile_reducer";
 import {Posts} from "./Posts/Posts";
+import {StateType} from "../../../Redux/redux-store";
 
 export const Profile = () => {
     const mapStateToProps = (state: StateType) => {
