@@ -20,12 +20,16 @@ export const Users = (props: UserPropsType) => {
         props.onClickHandlerUnfollow(userID)
     }
 
-    if(props.usersPage.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => props.setUsers(response.data.items))
+    const addUsers = () => {
+        if(props.usersPage.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => props.setUsers(response.data.items))
+        }
     }
+
 
     return (
         <div>
+            <button onClick={addUsers}>Add Users</button>
             {props.usersPage.users.map(user => <div key={user.id}>
                 <span>
                     <div>
