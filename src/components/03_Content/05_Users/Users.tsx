@@ -1,12 +1,14 @@
 import React from 'react';
-import {UsersPageType} from "../../../Redux/users_reducer";
+import {UsersPageType, UserType} from "../../../Redux/users_reducer";
 import cl from './Users.module.css'
+import axios from 'axios'
+import noPhoto from '../../../assets/images/noAvatar.jpeg'
 
 type UserPropsType = {
     usersPage: UsersPageType,
     onClickHandlerFollow: (userID: number) => void
     onClickHandlerUnfollow: (userID: number) => void
-    setUsers:(users:UsersPageType) => void
+    setUsers:(users:UserType[]) => void
 }
 
 export const Users = (props: UserPropsType) => {
@@ -18,12 +20,16 @@ export const Users = (props: UserPropsType) => {
         props.onClickHandlerUnfollow(userID)
     }
 
+    if(props.usersPage.users.length === 0) {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => props.setUsers(response.data.items))
+    }
+
     return (
         <div>
-            {props.usersPage.users.map(user => <div>
+            {props.usersPage.users.map(user => <div key={user.id}>
                 <span>
                     <div>
-                        <img className={cl.photo} src={user.photo} alt="Avatar" />
+                        <img className={cl.photo} src={user.photos.small != null? user.photos.small : noPhoto} alt="Avatar" />
                     </div>
                     <div>
                         <button
@@ -34,12 +40,12 @@ export const Users = (props: UserPropsType) => {
                 </span>
                 <span>
                     <span>
-                        <div>{user.fullName}</div>
+                        <div>{user.name}</div>
                         <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{user.location.city}</div>
-                        <div>{user.location.country}</div>
+                        {/*<div>{user.location.city}</div>*/}
+                        {/*<div>{user.location.country}</div>*/}
                     </span>
                 </span>
             </div>)}

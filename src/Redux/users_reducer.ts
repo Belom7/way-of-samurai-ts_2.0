@@ -1,60 +1,26 @@
-type UserType = {
+export type UserType = {
+    name: string
     id: number
-    photo: string
+    uniqueUrlName: string | undefined
+    photos: { small: string , large: string}
+    status: string | undefined
     followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
-    }
 }
 export type UsersPageType = {
     users: UserType[]
 }
+
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
 let initState: UsersPageType = {
-    users: [
-        {
-            id: 1,
-            photo: 'https://android-obzor.com/wp-content/uploads/2022/02/1-2-300x300.jpg',
-            followed: false,
-            fullName: 'Maks',
-            status: 'I am junior',
-            location: {city: 'Moscow', country: 'Russia'}
-        },
-        {
-            id: 2,
-            photo: 'https://i.pinimg.com/236x/74/05/5f/74055f83bfbdc20fdc1f9d1fc116fd26.jpg',
-            followed: true,
-            fullName: 'Igor',
-            status: 'Prepod',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 3,
-            photo: 'https://cspromogame.ru//storage/upload_images/avatars/833.jpg',
-            followed: false,
-            fullName: 'Egor',
-            status: 'I am middle',
-            location: {city: 'Moscow', country: 'Russia'}
-        },
-        {
-            id: 4,
-            photo: 'https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg',
-            followed: false,
-            fullName: 'Sasha',
-            status: 'I am tehnar',
-            location: {city: 'Ulan-u-de', country: 'Kazahstan'}
-        },
-    ]
+    users: []
+
 }
 
-export const usersReducer = (state: UsersPageType = initState, action: generalType) => {
+export const usersReducer = (state: UsersPageType = initState, action: generalType): UsersPageType => {
     switch (action.type) {
         case FOLLOW :
             return {
@@ -69,7 +35,7 @@ export const usersReducer = (state: UsersPageType = initState, action: generalTy
         case SET_USERS:
             return {
                 ...state,
-                users: [state.users, action.payload.users]
+                users: [...state.users, ...action.payload.users]
             }
         default :
             return state
@@ -100,7 +66,7 @@ export const unfollowAC = (userID: number) => {
         }
     } as const
 }
-export const setUsersAC = (users: UsersPageType) => {
+export const setUsersAC = (users: UserType[]) => {
     return {
         type: SET_USERS,
         payload: {
