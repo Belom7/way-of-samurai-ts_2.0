@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
+import cl from "./Users.module.css";
+import noPhoto from "../../../assets/images/noAvatar.jpeg";
+import axios from "axios";
 import {UsersPageType, UserType} from "../../../Redux/users_reducer";
-import cl from './Users.module.css'
-import axios from 'axios'
-import noPhoto from '../../../assets/images/noAvatar.jpeg'
 
 type UserPropsType = {
     usersPage: UsersPageType,
@@ -11,38 +11,36 @@ type UserPropsType = {
     setUsers:(users:UserType[]) => void
 }
 
-export const Users = (props: UserPropsType) => {
+export class Users extends React.Component<UserPropsType, any> {
 
-    const onClickHandlerFollow = (userID: number) => {
-        props.onClickHandlerFollow(userID)
-    }
-    const onClickHandlerUnfollow = (userID: number) => {
-        props.onClickHandlerUnfollow(userID)
+    constructor(props:UserPropsType) {
+        super(props);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data.items))
     }
 
-    const addUsers = () => {
-        if(props.usersPage.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => props.setUsers(response.data.items))
-        }
+    onClickHandlerFollow = (userID: number) => {
+        this.props.onClickHandlerFollow(userID)
+    }
+    onClickHandlerUnfollow = (userID: number) => {
+        this.props.onClickHandlerUnfollow(userID)
     }
 
-
-    return (
-        <div>
-            <button onClick={addUsers}>Add Users</button>
-            {props.usersPage.users.map(user => <div key={user.id}>
+    render(){
+        return (
+            <div>
+                {this.props.usersPage.users.map((user:UserType) => <div key={user.id}>
                 <span>
                     <div>
                         <img className={cl.photo} src={user.photos.small != null? user.photos.small : noPhoto} alt="Avatar" />
                     </div>
                     <div>
                         <button
-                            onClick={user.followed ? () => onClickHandlerUnfollow(user.id) : () => onClickHandlerFollow(user.id)}>
+                            onClick={user.followed ? () => this.onClickHandlerUnfollow(user.id) : () => this.onClickHandlerFollow(user.id)}>
                             {user.followed ? 'Unfollow': 'Follow' }
                         </button>
                     </div>
                 </span>
-                <span>
+                    <span>
                     <span>
                         <div>{user.name}</div>
                         <div>{user.status}</div>
@@ -52,7 +50,8 @@ export const Users = (props: UserPropsType) => {
                         {/*<div>{user.location.country}</div>*/}
                     </span>
                 </span>
-            </div>)}
-        </div>
-    );
-};
+                </div>)}
+            </div>
+        );
+    };
+}
