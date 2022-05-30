@@ -8,13 +8,12 @@ type UserPropsType = {
     usersPage: UsersPageType,
     onClickHandlerFollow: (userID: number) => void
     onClickHandlerUnfollow: (userID: number) => void
-    setUsers:(users:UserType[]) => void
+    setUsers: (users: UserType[]) => void
 }
 
 export class Users extends React.Component<UserPropsType, any> {
 
-    constructor(props:UserPropsType) {
-        super(props);
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data.items))
     }
 
@@ -25,18 +24,19 @@ export class Users extends React.Component<UserPropsType, any> {
         this.props.onClickHandlerUnfollow(userID)
     }
 
-    render(){
+    render() {
         return (
             <div>
-                {this.props.usersPage.users.map((user:UserType) => <div key={user.id}>
+                {this.props.usersPage.users.map((user: UserType) => <div key={user.id}>
                 <span>
                     <div>
-                        <img className={cl.photo} src={user.photos.small != null? user.photos.small : noPhoto} alt="Avatar" />
+                        <img className={cl.photo} src={user.photos.small != null ? user.photos.small : noPhoto}
+                             alt="Avatar"/>
                     </div>
                     <div>
                         <button
                             onClick={user.followed ? () => this.onClickHandlerUnfollow(user.id) : () => this.onClickHandlerFollow(user.id)}>
-                            {user.followed ? 'Unfollow': 'Follow' }
+                            {user.followed ? 'Unfollow' : 'Follow'}
                         </button>
                     </div>
                 </span>
