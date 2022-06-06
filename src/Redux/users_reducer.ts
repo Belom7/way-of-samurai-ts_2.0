@@ -73,14 +73,14 @@ type generalType = followACType
     | setIsLoaderACType
 
 
-type followACType = ReturnType<typeof followAC>
-type unfollowACType = ReturnType<typeof unfollowAC>
-type setUsersACType = ReturnType<typeof setUsersAC>
-type setPageSizeACType = ReturnType<typeof setCurrentPageAC>
-type setTotalUserCountACType = ReturnType<typeof setTotalUserCountAC>
-type setIsLoaderACType = ReturnType<typeof setIsLoaderAC>
+type followACType = ReturnType<typeof follow>
+type unfollowACType = ReturnType<typeof unFollow>
+type setUsersACType = ReturnType<typeof setUsers>
+type setPageSizeACType = ReturnType<typeof setCurrentPage>
+type setTotalUserCountACType = ReturnType<typeof setTotalUserCount>
+type setIsLoaderACType = ReturnType<typeof setIsLoader>
 
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
     return {
         type: FOLLOW,
         payload: {
@@ -88,7 +88,7 @@ export const followAC = (userID: number) => {
         }
     } as const
 }
-export const unfollowAC = (userID: number) => {
+export const unFollow = (userID: number) => {
     return {
         type: UNFOLLOW,
         payload: {
@@ -96,7 +96,7 @@ export const unfollowAC = (userID: number) => {
         }
     } as const
 }
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: SET_USERS,
         payload: {
@@ -104,7 +104,7 @@ export const setUsersAC = (users: UserType[]) => {
         }
     } as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: SET_CURRENT_PAGE,
         payload: {
@@ -112,7 +112,7 @@ export const setCurrentPageAC = (currentPage: number) => {
         }
     } as const
 }
-export const setTotalUserCountAC = (totalUserCount: number) => {
+export const setTotalUserCount = (totalUserCount: number) => {
     return {
         type: SET_TOTAL_USER_COUNT,
         payload: {
@@ -120,7 +120,7 @@ export const setTotalUserCountAC = (totalUserCount: number) => {
         }
     } as const
 }
-export const setIsLoaderAC = (isLoader: boolean) => {
+export const setIsLoader = (isLoader: boolean) => {
     return {
         type: SET_IS_LOADER,
         payload: {

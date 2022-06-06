@@ -1,12 +1,13 @@
 import {connect} from "react-redux";
 import {StateType} from "../../../Redux/redux-store";
-import {Dispatch} from "redux";
 import {
-    followAC,
-    setCurrentPageAC, setIsLoaderAC,
-    setTotalUserCountAC,
-    setUsersAC,
-    unfollowAC, UsersPageType,
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPage,
+    setIsLoader,
+    setTotalUserCount,
+    UsersPageType,
     UserType
 } from "../../../Redux/users_reducer";
 import React from "react";
@@ -15,13 +16,13 @@ import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
 
 type UserPropsType = {
-    usersPage: UsersPageType,
-    onClickHandlerFollow: (userID: number) => void
-    onClickHandlerUnfollow: (userID: number) => void
+    follow: (userID: number) => void
+    unFollow: (userID: number) => void
     setUsers: (users: UserType[]) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUserCount: (totalUserCount: number) => void
     setIsLoader: (isLoader: boolean) => void
+    usersPage: UsersPageType,
 }
 
 export class UsersAPI extends React.Component<UserPropsType> {
@@ -35,7 +36,6 @@ export class UsersAPI extends React.Component<UserPropsType> {
                     this.props.setIsLoader(false)
                 }
             )
-
     }
 
     onClickHandler = (b: number) => {
@@ -50,10 +50,10 @@ export class UsersAPI extends React.Component<UserPropsType> {
     }
 
     onClickHandlerFollow = (userID: number) => {
-        this.props.onClickHandlerFollow(userID)
+        this.props.follow(userID)
     }
     onClickHandlerUnfollow = (userID: number) => {
-        this.props.onClickHandlerUnfollow(userID)
+        this.props.unFollow(userID)
     }
 
     render() {
@@ -84,15 +84,7 @@ const mapStateToProps = (state: StateType) => {
         currentPage: state.usersPage.currentPage,
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        onClickHandlerFollow: (userID: number) => dispatch(followAC(userID)),
-        onClickHandlerUnfollow: (userID: number) => dispatch(unfollowAC(userID)),
-        setUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
-        setCurrentPage: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
-        setTotalUserCount: (totalUserCount: number) => dispatch(setTotalUserCountAC(totalUserCount)),
-        setIsLoader: (isLoader: boolean) => dispatch(setIsLoaderAC(isLoader))
-    }
-}
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
+export const UsersContainer = connect(mapStateToProps, {
+    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, setIsLoader
+})(UsersAPI)
