@@ -1,16 +1,16 @@
 import React from 'react';
 import cl from "./Users.module.css";
-import {UsersPageType, UserType} from "../../../Redux/users_reducer";
+import {UserType} from "../../../Redux/users_reducer";
 import noPhoto from "../../../assets/images/noAvatar.jpeg";
 
 type propsType = {
     onClickHandler: (b: number) => void
     onClickHandlerFollow: (userID: number) => void
     onClickHandlerUnfollow: (userID: number) => void
-    totalUserCount: number
-    pageSize: number
+    totalUserCount:number
+    pageSize:number
     currentPage: number
-    usersPage: UsersPageType
+    users: UserType[]
 
 }
 
@@ -18,7 +18,7 @@ export const Users = ({
                           onClickHandler,
                           onClickHandlerFollow,
                           onClickHandlerUnfollow,
-                          usersPage,
+                          users,
                           currentPage,
                           totalUserCount,
                           pageSize,
@@ -39,7 +39,7 @@ export const Users = ({
                 >
                         {b} </span>)}
             </div>
-            {usersPage.users.map((user: UserType) => <div key={user.id}>
+            {users.map((user: UserType) => <div key={user.id}>
                 <span>
                     <div>
                         <img className={cl.photo} src={user.photos.small != null ? user.photos.small : noPhoto}
