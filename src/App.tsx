@@ -18,7 +18,7 @@ function App() {
             <div className='App-wrapper-content'>
                 <Routes>
                     <Route path={'/profile'} element={<ProfileContainer/>}>
-                        <Route path={':id'} element={<ProfileContainer/>}/>  {/*вложенный вариант*/}
+                        <Route path={':userId'} element={<ProfileContainer/>}/>  {/*вложенный вариант*/}
                     </Route>
                     <Route path={'/messages'} element={<DialogsContainer/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
