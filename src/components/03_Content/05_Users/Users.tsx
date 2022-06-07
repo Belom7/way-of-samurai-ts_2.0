@@ -2,13 +2,14 @@ import React from 'react';
 import cl from "./Users.module.css";
 import {UserType} from "../../../Redux/users_reducer";
 import noPhoto from "../../../assets/images/noAvatar.jpeg";
+import {NavLink} from "react-router-dom";
 
 type propsType = {
     onClickHandler: (b: number) => void
     onClickHandlerFollow: (userID: number) => void
     onClickHandlerUnfollow: (userID: number) => void
-    totalUserCount:number
-    pageSize:number
+    totalUserCount: number
+    pageSize: number
     currentPage: number
     users: UserType[]
 
@@ -42,8 +43,10 @@ export const Users = ({
             {users.map((user: UserType) => <div key={user.id}>
                 <span>
                     <div>
+                        <NavLink to={`/profile/${user.id}`}>
                         <img className={cl.photo} src={user.photos.small != null ? user.photos.small : noPhoto}
                              alt="Avatar"/>
+                        </NavLink>
                     </div>
                     <div>
                         <button

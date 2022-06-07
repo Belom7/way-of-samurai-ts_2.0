@@ -4,8 +4,8 @@ import {Post} from "./Post/Post";
 
 type PostsPropsType = {
     profilePage: { newMessage: string, posts: { name: string, message: string, likeCount: number }[] }
-    onClickAddPostHandler : (newMessage:string) => void
-    onChangeHandler : (value:string) => void
+    addPost : (newMessage:string) => void
+    updateNewPostText : (value:string) => void
 }
 
 
@@ -13,10 +13,10 @@ export const Posts = (props: PostsPropsType) => {
 
     const onClickAddPostHandler = () => {
         let newMessage = props.profilePage.newMessage
-        props.onClickAddPostHandler(newMessage)
+        props.addPost(newMessage)
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangeHandler(e.currentTarget.value)
+        props.updateNewPostText(e.currentTarget.value)
     }
 
     return (

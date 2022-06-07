@@ -46,7 +46,6 @@ export class UsersAPI extends React.Component<UserPropsType> {
                 this.props.setUsers(response.data.items)
                 this.props.setIsLoader(false)
             })
-
     }
 
     onClickHandlerFollow = (userID: number) => {
@@ -59,10 +58,7 @@ export class UsersAPI extends React.Component<UserPropsType> {
     render() {
         return (
             <div>
-                <>
-                    {this.props.usersPage.isLoader && <Preloader/>}
-                </>
-
+                <>{this.props.usersPage.isLoader && <Preloader/>}</>
                 <Users onClickHandler={this.onClickHandler}
                        onClickHandlerFollow={this.onClickHandlerFollow}
                        onClickHandlerUnfollow={this.onClickHandlerUnfollow}

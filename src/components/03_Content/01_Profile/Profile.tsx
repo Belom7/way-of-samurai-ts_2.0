@@ -1,31 +1,21 @@
 import React from 'react';
-import cl from './Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {Dispatch} from "redux";
-import {connect} from "react-redux";
-import {AddPostAC, UpdateNewPostTextAC} from "../../../Redux/profile_reducer";
 import {Posts} from "./Posts/Posts";
-import {StateType} from "../../../Redux/redux-store";
+import {profilePageType, profileType} from "../../../Redux/profile_reducer";
 
-export const Profile = () => {
-    const mapStateToProps = (state: StateType) => {
-        return {
-            profilePage: state.profilePage
-        }
-    }
-    const mapDispatchToProps = (dispatch: Dispatch) => {
-        return {
-            onClickAddPostHandler: (newMessage:string) => dispatch(AddPostAC(newMessage)),
-            onChangeHandler: (value:string) => dispatch(UpdateNewPostTextAC(value))
-        }
+type ProfilePropsType = {
+    addPost: (newMessage: string) => void
+    updateNewPostText: (value: string) => void
+    setUserProfile: (profile: profileType) => void
+    profilePage: profilePageType
+}
 
-    }
-    const SuperProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
-
+export const Profile = ({addPost,profilePage, updateNewPostText}:ProfilePropsType) => {
     return (
-        <div className={cl.content}>
-            <ProfileInfo/>
-            <SuperProfileContainer/>
+        <div>
+            <ProfileInfo profile={profilePage.profile}/>
+            <Posts profilePage={profilePage} addPost={addPost}
+                   updateNewPostText={updateNewPostText}/>
         </div>
     );
 };
