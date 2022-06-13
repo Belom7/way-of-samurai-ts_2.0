@@ -1,4 +1,4 @@
-type authType = {
+export type authType = {
     id: number | null,
     email: string | null,
     login: string | null
@@ -7,7 +7,7 @@ type authType = {
 let initialState: authType = {
     id: null,
     email: null,
-    login: null
+    login: null,
 }
 
 const SET_USER_DATA = 'SET_USER_DATA '
@@ -25,12 +25,13 @@ export const authReducer = (state: authType = initialState, action: generalType)
 }
 
 
-type generalType = setUser
+type generalType = setUserDataType
 
-type setUser = ReturnType<typeof setUserData>
+type setUserDataType = ReturnType<typeof setUserData>
 
 
 export const setUserData = (data:authType) => {
+
     return {
         type: SET_USER_DATA,
         payload: {
