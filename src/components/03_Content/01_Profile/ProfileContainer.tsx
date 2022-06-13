@@ -36,7 +36,6 @@ function withRouter<T extends unknown>(Component: React.ComponentType<T>) {
 export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
 
     componentDidMount() {
-        console.log(this.props.router)
         let userId = this.props.router.params.userId
         if(!userId){
             userId=18086
