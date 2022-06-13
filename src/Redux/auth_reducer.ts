@@ -1,23 +1,27 @@
 export type authType = {
-    id: number | null,
     email: string | null,
-    login: string | null
+    id: number | null,
+    login: string | null,
+    isAuth: boolean
 }
 
 let initialState: authType = {
-    id: null,
     email: null,
+    id: null,
     login: null,
+    isAuth: false
 }
 
 const SET_USER_DATA = 'SET_USER_DATA '
 
-export const authReducer = (state: authType = initialState, action: generalType) => {
+export const authReducer = (state: authType = initialState, action: generalType):authType => {
+
     switch (action.type) {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.payload.data
+                ...action.payload.data,
+                isAuth: true
             }
         default:
             return state
@@ -30,8 +34,7 @@ type generalType = setUserDataType
 type setUserDataType = ReturnType<typeof setUserData>
 
 
-export const setUserData = (data:authType) => {
-
+export const setUserData = (data: authType) => {
     return {
         type: SET_USER_DATA,
         payload: {
