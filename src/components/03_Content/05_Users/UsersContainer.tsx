@@ -29,7 +29,8 @@ export class UsersAPI extends React.Component<UserPropsType> {
 
     componentDidMount() {
         this.props.setIsLoader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${10}&page=${this.props.usersPage.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${10}&page=${this.props.usersPage.currentPage}`,
+            {withCredentials: true})
             .then(response => {
                     this.props.setUsers(response.data.items)
                     this.props.setTotalUserCount(response.data.totalCount)
@@ -41,7 +42,9 @@ export class UsersAPI extends React.Component<UserPropsType> {
     onClickHandler = (b: number) => {
         this.props.setIsLoader(true)
         this.props.setCurrentPage(b)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${10}&page=${b}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${10}&page=${b}`, {
+            withCredentials: true,
+        })
             .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.setIsLoader(false)
@@ -49,10 +52,30 @@ export class UsersAPI extends React.Component<UserPropsType> {
     }
 
     onClickHandlerFollow = (userID: number) => {
-        this.props.follow(userID)
+        this.props.setIsLoader(true)
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`, {}, {
+            withCredentials: true,
+            headers: {'API-KEY': 'fe474fb0-e353-423b-ba4a-43fb90adef85'}
+        })
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    this.props.follow(userID)
+                    this.props.setIsLoader(false)
+                }
+            })
     }
     onClickHandlerUnfollow = (userID: number) => {
-        this.props.unFollow(userID)
+        this.props.setIsLoader(true)
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`,  {
+            withCredentials: true,
+            headers: {'API-KEY': 'fe474fb0-e353-423b-ba4a-43fb90adef85'}
+        })
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    this.props.unFollow(userID)
+                    this.props.setIsLoader(false)
+                }
+            })
     }
 
     render() {
