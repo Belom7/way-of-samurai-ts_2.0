@@ -12,6 +12,7 @@ export type UsersPageType = {
     totalUserCount: number
     currentPage: number
     isLoader: boolean
+    isDisabled: number[]
 }
 
 
@@ -21,14 +22,15 @@ const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT'
 const SET_IS_LOADER = 'SET-IS-LOADER'
+const SET_IS_DISABLED = 'SET_IS_DISABLED'
 
 let initState: UsersPageType = {
     users: [],
     pageSize: 100, //размеры страницы
     totalUserCount: 0, //общее число пользователей
     currentPage: 1, // текущая страница
-    isLoader: false
-
+    isLoader: false,
+    isDisabled: []
 }
 
 export const usersReducer = (state: UsersPageType = initState, action: generalType): UsersPageType => {
@@ -60,6 +62,15 @@ export const usersReducer = (state: UsersPageType = initState, action: generalTy
             return {
                 ...state, isLoader: action.payload.isLoader
             }
+        case SET_IS_DISABLED:
+            debugger
+            return {
+                ...state,
+                isDisabled: action.payload.isDisabled ?
+                    [...state.isDisabled, action.payload.id]
+                    :state.isDisabled.filter(id => id !== action.payload.id)
+
+            }
         default :
             return state
     }
@@ -71,6 +82,7 @@ type generalType = followACType
     | setPageSizeACType
     | setTotalUserCountACType
     | setIsLoaderACType
+    | setIsDisabledType
 
 
 type followACType = ReturnType<typeof follow>
@@ -79,6 +91,7 @@ type setUsersACType = ReturnType<typeof setUsers>
 type setPageSizeACType = ReturnType<typeof setCurrentPage>
 type setTotalUserCountACType = ReturnType<typeof setTotalUserCount>
 type setIsLoaderACType = ReturnType<typeof setIsLoader>
+type setIsDisabledType = ReturnType<typeof setIsDisabled>
 
 export const follow = (userID: number) => {
     return {
@@ -125,6 +138,15 @@ export const setIsLoader = (isLoader: boolean) => {
         type: SET_IS_LOADER,
         payload: {
             isLoader
+        }
+    } as const
+}
+export const setIsDisabled = (id: number, isDisabled: boolean) => {
+    return {
+        type: SET_IS_DISABLED,
+        payload: {
+            id,
+            isDisabled
         }
     } as const
 }

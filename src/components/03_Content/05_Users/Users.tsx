@@ -12,6 +12,7 @@ type propsType = {
     pageSize: number
     currentPage: number
     users: UserType[]
+    isDisabled: number[]
 
 }
 
@@ -23,6 +24,7 @@ export const Users = ({
                           currentPage,
                           totalUserCount,
                           pageSize,
+                          isDisabled
                       }: propsType) => {
 
     let pagesCount = Math.ceil(totalUserCount / pageSize)
@@ -49,8 +51,11 @@ export const Users = ({
                         </NavLink>
                     </div>
                     <div>
-                        <button
-                            onClick={user.followed ? () => onClickHandlerUnfollow(user.id) : () => onClickHandlerFollow(user.id)}>
+                        <button disabled={ isDisabled.some(id=>id=== user.id) }
+                                onClick={user.followed ? () => {
+                                    debugger
+                                    onClickHandlerUnfollow(user.id)
+                                } : () => onClickHandlerFollow(user.id)}>
                             {user.followed ? 'Unfollow' : 'Follow'}
                         </button>
                     </div>

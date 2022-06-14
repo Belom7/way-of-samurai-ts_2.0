@@ -8,7 +8,7 @@ import {
     setIsLoader,
     setTotalUserCount,
     UsersPageType,
-    UserType
+    UserType, setIsDisabled,
 } from "../../../Redux/users_reducer";
 import React from "react";
 import {Users} from "./Users";
@@ -23,6 +23,8 @@ type UserPropsType = {
     setTotalUserCount: (totalUserCount: number) => void
     setIsLoader: (isLoader: boolean) => void
     usersPage: UsersPageType,
+    setIsDisabled: (id: number, isDisabled: boolean) => void
+    isDisabled: number[]
 }
 
 export class UsersAPI extends React.Component<UserPropsType> {
@@ -48,21 +50,22 @@ export class UsersAPI extends React.Component<UserPropsType> {
     }
 
     onClickHandlerFollow = (userID: number) => {
-        this.props.setIsLoader(true)
+        this.props.setIsDisabled(userID, true)
         usersApi.followUser(userID).then(data => {
                 if (data.resultCode === 0) {
                     this.props.follow(userID)
-                    this.props.setIsLoader(false)
+                    this.props.setIsDisabled(userID, false)
                 }
             }
         )
     }
 
     onClickHandlerUnfollow = (userID: number) => {
+        this.props.setIsDisabled(userID, true)
         usersApi.unFollowUser(userID).then(data => {
                 if (data.resultCode === 0) {
                     this.props.unFollow(userID)
-                    this.props.setIsLoader(false)
+                    this.props.setIsDisabled(userID, false)
                 }
             }
         )
@@ -79,6 +82,7 @@ export class UsersAPI extends React.Component<UserPropsType> {
                        currentPage={this.props.usersPage.currentPage}
                        totalUserCount={this.props.usersPage.totalUserCount}
                        pageSize={this.props.usersPage.pageSize}
+                       isDisabled={this.props.isDisabled}
                 />
             </div>
         );
@@ -86,14 +90,16 @@ export class UsersAPI extends React.Component<UserPropsType> {
 }
 
 const mapStateToProps = (state: StateType) => {
+    debugger
     return {
         usersPage: state.usersPage,
         pageSize: state.usersPage.pageSize,
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
+        isDisabled: state.usersPage.isDisabled,
     }
 }
 
 export const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, setIsLoader
+    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, setIsLoader, setIsDisabled,
 })(UsersAPI)
