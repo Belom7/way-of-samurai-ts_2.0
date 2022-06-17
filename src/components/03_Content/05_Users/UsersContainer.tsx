@@ -1,16 +1,23 @@
 import {connect} from "react-redux";
 import {StateType} from "../../../Redux/redux-store";
-import { getUsersThunkCreator, followUserThunkCreator, unFollowUserThunkCreator, UsersPageType} from "../../../Redux/users_reducer";
+import {
+    getUsersThunkCreator,
+    followUserThunkCreator,
+    unFollowUserThunkCreator,
+    UsersPageType
+} from "../../../Redux/users_reducer";
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
+import {Navigate} from "react-router-dom";
 
 type UserPropsType = {
-    getUsersThunkCreator:(currentPage:number)=>void
-    followUserThunkCreator:(userID:number)=>void
-    unFollowUserThunkCreator:(userID:number)=>void
+    getUsersThunkCreator: (currentPage: number) => void
+    followUserThunkCreator: (userID: number) => void
+    unFollowUserThunkCreator: (userID: number) => void
     isDisabled: number[]
     usersPage: UsersPageType
+    isAuth: boolean
 }
 
 export class UsersAPI extends React.Component<UserPropsType> {
@@ -40,6 +47,7 @@ export class UsersAPI extends React.Component<UserPropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) return <Navigate to={'/login'}/>
         return (
             <div>
                 <>{this.props.usersPage.isLoader && <Preloader/>}</>
@@ -64,6 +72,7 @@ const mapStateToProps = (state: StateType) => {
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
         isDisabled: state.usersPage.isDisabled,
+        isAuth: state.auth.isAuth
     }
 }
 

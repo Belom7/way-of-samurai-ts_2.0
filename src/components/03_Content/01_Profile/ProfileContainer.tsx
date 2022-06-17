@@ -15,6 +15,7 @@ type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & { router: 
 
 type mapStatePropsType = {
     profilePage: profilePageType
+    isAuth:boolean
 }
 
 type mapDispatchPropsType = {
@@ -58,7 +59,8 @@ export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
 
 const mapStateToProps = (state: StateType): mapStatePropsType => {
     return {
-        profilePage: state.profilePage
+        profilePage: state.profilePage,
+        isAuth: state.auth.isAuth
     }
 }
 

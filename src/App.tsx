@@ -8,6 +8,7 @@ import {UsersContainer} from "./components/03_Content/05_Users/UsersContainer";
 import {DialogsContainer} from "./components/03_Content/02_Dialogs/DialogsContainer";
 import {ProfileContainer} from "./components/03_Content/01_Profile/ProfileContainer";
 import {HeaderContainer} from "./components/01_Header/HeaderContainer";
+import {Login} from "./components/03_Content/Login/Login";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     {/*<Route path={'/music/:id'} element={<Music/>}/>*/} {/*второй вариант вариант*/}
+                    <Route path={'/login'} element={<Login/>}/>
                 </Routes>
             </div>
         </div>

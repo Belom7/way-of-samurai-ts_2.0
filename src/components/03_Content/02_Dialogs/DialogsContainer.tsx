@@ -3,10 +3,12 @@ import {Dispatch} from "redux";
 import {AddMessageAC, UpdateNewMessageTextAC} from "../../../Redux/dialogs_reducer";
 import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
+import React from "react";
 
 const mapStateContainerToProps = (state: StateType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchContainerToProps = (dispatch: Dispatch) => {
