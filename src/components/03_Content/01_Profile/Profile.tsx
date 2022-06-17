@@ -1,12 +1,11 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {Posts} from "./Posts/Posts";
-import {profilePageType, profileType} from "../../../Redux/profile_reducer";
+import {profilePageType} from "../../../Redux/profile_reducer";
 
 type ProfilePropsType = {
     addPost: (newMessage: string) => void
     updateNewPostText: (value: string) => void
-    setUserProfile: (profile: profileType) => void
     profilePage: profilePageType
 }
 

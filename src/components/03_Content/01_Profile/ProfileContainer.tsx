@@ -2,20 +2,16 @@ import React from 'react';
 import cl from './Profile.module.css'
 import {connect} from "react-redux";
 import {
-    addPost,
-    isUsersThunkCreator,
+    addPost, isProfileThunkCreator,
     profilePageType,
-    profileType,
-    setUserProfile,
     updateNewPostText
 } from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/redux-store";
-import axios from "axios";
 import {Profile} from "./Profile";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
 
 
-type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & {router: any}
+type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & { router: any }
 
 type mapStatePropsType = {
     profilePage: profilePageType
@@ -24,8 +20,7 @@ type mapStatePropsType = {
 type mapDispatchPropsType = {
     addPost: (newMessage: string) => void
     updateNewPostText: (value: string) => void
-    setUserProfile: (profile: profileType) => void
-    isUsersThunkCreator:(userID: number)=>void
+    isProfileThunkCreator: (userID: number) => void
 }
 
 function withRouter<T extends unknown>(Component: React.ComponentType<T>) {
@@ -36,25 +31,20 @@ function withRouter<T extends unknown>(Component: React.ComponentType<T>) {
         return (
             <Component
                 {...props}
-                router={{ location, navigate, params }}
+                router={{location, navigate, params}}
             />
         );
-    }}
+    }
+}
 
 export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
 
     componentDidMount() {
         let userId = this.props.router.params.userId
-        if(!userId){
-            userId=18086
+        if (!userId) {
+            userId = 18086
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                    this.props.setUserProfile(response.data)
-                }
-            )
-
-        this.props.isUsersThunkCreator(34)
+        this.props.isProfileThunkCreator(userId)
     }
 
     render() {
@@ -66,16 +56,17 @@ export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
     }
 }
 
-const mapStateToProps = (state: StateType):mapStatePropsType => {
+const mapStateToProps = (state: StateType): mapStatePropsType => {
     return {
         profilePage: state.profilePage
     }
 }
 
 
-
 let WithUrlDataContainerComponent = withRouter(ProfileAPI)
 
-export const ProfileContainer = connect<
-    mapStatePropsType, mapDispatchPropsType, any, StateType
-    >(mapStateToProps, {addPost, updateNewPostText, setUserProfile, isUsersThunkCreator})(WithUrlDataContainerComponent)
+export const ProfileContainer = connect<mapStatePropsType, mapDispatchPropsType, any, StateType>(mapStateToProps, {
+    addPost,
+    updateNewPostText,
+    isProfileThunkCreator
+})(WithUrlDataContainerComponent)

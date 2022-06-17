@@ -1,6 +1,8 @@
 import React from 'react';
 import {profileType} from "../../../../Redux/profile_reducer";
 import {Preloader} from "../../../common/preloader/Preloader";
+import noPhoto from "../../../../assets/images/noAvatar.jpeg";
+import cl from './ProfileInfo.module.css'
 
 type ProfileInfoPropsType = {
     profile:profileType | null
@@ -17,7 +19,7 @@ export const ProfileInfo = ({profile}:ProfileInfoPropsType) => {
                      src={'https://rozabox.com/wp-content/uploads/2019/01/man-5846064_1920-735x400.jpg'}/>
             </div>
             <div>
-                <img src={profile.photos.small} alt={'userAvatar'}/>
+                <img className={cl.avatarProfile} src={profile.photos.small? profile.photos.small : noPhoto} alt={'userAvatar'}/>
             </div>
             <div>
                 {profile.aboutMe}

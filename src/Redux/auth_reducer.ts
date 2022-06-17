@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {usersApi} from "../api/api";
+import {AuthApi} from "../api/api";
 
 export type authType = {
     email: string | null,
@@ -47,9 +47,8 @@ export const setUserData = (data: authType) => {
 }
 
 export const authMeThunkCreator = () => (dispatch: Dispatch) => {
-    usersApi.authMe()
+    AuthApi.authMe()
         .then(data => {
-            debugger
             if (data.resultCode === 0) {
                 dispatch(setUserData(data.data))
             }

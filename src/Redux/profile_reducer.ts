@@ -2,32 +2,32 @@ import {Dispatch} from "redux";
 import {usersApi} from "../api/api";
 
 type contactsType = {
-    facebook:string|undefined
-    website:string|undefined
-        vk:string|undefined
-    twitter:string|undefined
-    instagram:string|undefined
-    youtube:string|undefined
-    github:string|undefined
-    mainLink:string|undefined
+    facebook: string | undefined
+    website: string | undefined
+    vk: string | undefined
+    twitter: string | undefined
+    instagram: string | undefined
+    youtube: string | undefined
+    github: string | undefined
+    mainLink: string | undefined
 }
 type photosType = {
-    small:string|undefined
-    large:string|undefined
+    small: string | undefined
+    large: string | undefined
 }
 export type profileType = {
-    aboutMe:string
-    contacts:contactsType
-    lookingForAJob:boolean
-    lookingForAJobDescription:string|undefined
-    fullName:string
-    userId:number
-    photos:photosType
+    aboutMe: string
+    contacts: contactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | undefined
+    fullName: string
+    userId: number
+    photos: photosType
 }
 export type profilePageType = {
     newMessage: string
     posts: { name: string, message: string, likeCount: number }[]
-    profile : profileType | null
+    profile: profileType | null
 }
 export type AddPostType = {
     type: 'ADD-POST'
@@ -51,7 +51,7 @@ let initialState: profilePageType = {
         {name: 'Alex', message: 'perfecto!', likeCount: 50},
         {name: 'Gera', message: 'rrrr!', likeCount: 50},
     ],
-    profile : null
+    profile: null
 }
 
 export const profileReducer = (state: profilePageType = initialState, action: generalType) => {
@@ -106,9 +106,9 @@ export const setUserProfile = (profile: profileType) => {
     } as const
 }
 
-export const isUsersThunkCreator = (userID:number) => (dispatch: Dispatch) => {
-    usersApi.isUsers(userID)
+export const isProfileThunkCreator = (userID: number) => (dispatch: Dispatch) => {
+    usersApi.getProfile(userID)
         .then(data => {
-
+            dispatch(setUserProfile(data))
         })
 }
