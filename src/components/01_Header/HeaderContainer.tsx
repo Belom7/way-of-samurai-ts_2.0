@@ -1,12 +1,11 @@
 import React from 'react';
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {authType, setUserData} from "../../Redux/auth_reducer";
+import {authMeThunkCreator} from "../../Redux/auth_reducer";
 import {StateType} from "../../Redux/redux-store";
 
 type HeaderPropsType = {
-    setUserData: (data: authType) => void
+    authMeThunkCreator: () => void
     isAuth: boolean
     login: string | null
 }
@@ -14,13 +13,7 @@ type HeaderPropsType = {
 export class HeaderAPI extends React.Component<HeaderPropsType> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then(response => {
-                    if (response.data.resultCode === 0) {
-                        this.props.setUserData(response.data.data)
-                    }
-                }
-            )
+        this.props.authMeThunkCreator()
     }
 
     render() {
@@ -37,5 +30,5 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export const HeaderContainer = connect(mapStateToProps, {setUserData})(HeaderAPI)
+export const HeaderContainer = connect(mapStateToProps, {authMeThunkCreator})(HeaderAPI)
 

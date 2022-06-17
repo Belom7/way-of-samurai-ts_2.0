@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersApi} from "../api/api";
+
 type contactsType = {
     facebook:string|undefined
     website:string|undefined
@@ -101,4 +104,11 @@ export const setUserProfile = (profile: profileType) => {
             profile
         }
     } as const
+}
+
+export const isUsersThunkCreator = (userID:number) => (dispatch: Dispatch) => {
+    usersApi.isUsers(userID)
+        .then(data => {
+
+        })
 }

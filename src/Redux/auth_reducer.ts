@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersApi} from "../api/api";
+
 export type authType = {
     email: string | null,
     id: number | null,
@@ -14,7 +17,7 @@ let initialState: authType = {
 
 const SET_USER_DATA = 'SET_USER_DATA '
 
-export const authReducer = (state: authType = initialState, action: generalType):authType => {
+export const authReducer = (state: authType = initialState, action: generalType): authType => {
 
     switch (action.type) {
         case SET_USER_DATA:
@@ -41,4 +44,14 @@ export const setUserData = (data: authType) => {
             data
         }
     } as const
+}
+
+export const authMeThunkCreator = () => (dispatch: Dispatch) => {
+    usersApi.authMe()
+        .then(data => {
+            debugger
+            if (data.resultCode === 0) {
+                dispatch(setUserData(data.data))
+            }
+        })
 }

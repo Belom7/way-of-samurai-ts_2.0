@@ -24,5 +24,17 @@ export const usersApi = {
             .then(response => {
                 return response.data
             })
+    },
+    authMe() {
+        return instance.get(`auth/me`)
+            .then(response => {
+                return response.data
+            })
+    },
+    isUsers(userID:number){
+        return instance.get(`profile/${userID}`)
+            .then(response => {
+                return response.data
+            })
     }
 }

@@ -1,3 +1,6 @@
+import {usersApi} from "../api/api";
+import {Dispatch} from "redux";
+
 export type UserType = {
     name: string
     id: number
@@ -63,12 +66,11 @@ export const usersReducer = (state: UsersPageType = initState, action: generalTy
                 ...state, isLoader: action.payload.isLoader
             }
         case SET_IS_DISABLED:
-            debugger
             return {
                 ...state,
                 isDisabled: action.payload.isDisabled ?
                     [...state.isDisabled, action.payload.id]
-                    :state.isDisabled.filter(id => id !== action.payload.id)
+                    : state.isDisabled.filter(id => id !== action.payload.id)
 
             }
         default :
@@ -149,4 +151,38 @@ export const setIsDisabled = (id: number, isDisabled: boolean) => {
             isDisabled
         }
     } as const
+}
+
+
+export const getUsersThunkCreator = (currentPage: number) => (dispatch: Dispatch) => {
+    dispatch(setIsLoader(true))
+    usersApi.getUsers(currentPage)
+        .then(data => {
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUserCount(data.totalCount))
+            dispatch(setIsLoader(false))
+        })
+}
+
+export const followUserThunkCreator = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(setIsDisabled(userID, true))
+    usersApi.followUser(userID)
+        .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(follow(userID))
+                    dispatch(setIsDisabled(userID, false))
+                }
+            }
+        )
+}
+export const unFollowUserThunkCreator = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(setIsDisabled(userID, true))
+    usersApi.unFollowUser(userID)
+        .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unFollow(userID))
+                    dispatch(setIsDisabled(userID, false))
+                }
+            }
+        )
 }

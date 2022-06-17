@@ -51,9 +51,8 @@ export const Users = ({
                         </NavLink>
                     </div>
                     <div>
-                        <button disabled={ isDisabled.some(id=>id=== user.id) }
-                                onClick={user.followed ? () => {
-                                    debugger
+                        <button disabled={isDisabled.some(id => id === user.id)}
+                                 onClick={user.followed ? () => {
                                     onClickHandlerUnfollow(user.id)
                                 } : () => onClickHandlerFollow(user.id)}>
                             {user.followed ? 'Unfollow' : 'Follow'}

@@ -1,74 +1,42 @@
 import {connect} from "react-redux";
 import {StateType} from "../../../Redux/redux-store";
-import {
-    follow,
-    unFollow,
-    setUsers,
-    setCurrentPage,
-    setIsLoader,
-    setTotalUserCount,
-    UsersPageType,
-    UserType, setIsDisabled,
-} from "../../../Redux/users_reducer";
+import { getUsersThunkCreator, followUserThunkCreator, unFollowUserThunkCreator, UsersPageType} from "../../../Redux/users_reducer";
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
-import {usersApi} from "../../../api/api";
 
 type UserPropsType = {
-    follow: (userID: number) => void
-    unFollow: (userID: number) => void
-    setUsers: (users: UserType[]) => void
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUserCount: (totalUserCount: number) => void
-    setIsLoader: (isLoader: boolean) => void
-    usersPage: UsersPageType,
-    setIsDisabled: (id: number, isDisabled: boolean) => void
+    getUsersThunkCreator:(currentPage:number)=>void
+    followUserThunkCreator:(userID:number)=>void
+    unFollowUserThunkCreator:(userID:number)=>void
     isDisabled: number[]
+    usersPage: UsersPageType
 }
 
 export class UsersAPI extends React.Component<UserPropsType> {
 
     componentDidMount() {
-        this.props.setIsLoader(true)
-        usersApi.getUsers(this.props.usersPage.currentPage).then(data => {
-                this.props.setUsers(data.items)
-                this.props.setTotalUserCount(data.totalCount)
-                this.props.setIsLoader(false)
-            }
-        )
+        this.props.getUsersThunkCreator(this.props.usersPage.currentPage)
     }
 
     onClickHandler = (b: number) => {
-        this.props.setIsLoader(true)
-        this.props.setCurrentPage(b)
-        usersApi.getUsers(b).then(data => {
-                this.props.setUsers(data.items)
-                this.props.setIsLoader(false)
-            }
-        )
+
+        this.props.getUsersThunkCreator(b)
+
+        // this.props.setIsLoader(true)
+        // this.props.setCurrentPage(b) //!!!!!
+        // usersApi.getUsers(b).then(data => {
+        //         this.props.setUsers(data.items)
+        //         this.props.setIsLoader(false)
+        //     }
+        // )
     }
 
     onClickHandlerFollow = (userID: number) => {
-        this.props.setIsDisabled(userID, true)
-        usersApi.followUser(userID).then(data => {
-                if (data.resultCode === 0) {
-                    this.props.follow(userID)
-                    this.props.setIsDisabled(userID, false)
-                }
-            }
-        )
+        this.props.followUserThunkCreator(userID)
     }
-
     onClickHandlerUnfollow = (userID: number) => {
-        this.props.setIsDisabled(userID, true)
-        usersApi.unFollowUser(userID).then(data => {
-                if (data.resultCode === 0) {
-                    this.props.unFollow(userID)
-                    this.props.setIsDisabled(userID, false)
-                }
-            }
-        )
+        this.props.unFollowUserThunkCreator(userID)
     }
 
     render() {
@@ -90,7 +58,6 @@ export class UsersAPI extends React.Component<UserPropsType> {
 }
 
 const mapStateToProps = (state: StateType) => {
-    debugger
     return {
         usersPage: state.usersPage,
         pageSize: state.usersPage.pageSize,
@@ -101,5 +68,5 @@ const mapStateToProps = (state: StateType) => {
 }
 
 export const UsersContainer = connect(mapStateToProps, {
-    follow, unFollow, setUsers, setCurrentPage, setTotalUserCount, setIsLoader, setIsDisabled,
+    getUsersThunkCreator, followUserThunkCreator, unFollowUserThunkCreator,
 })(UsersAPI)
