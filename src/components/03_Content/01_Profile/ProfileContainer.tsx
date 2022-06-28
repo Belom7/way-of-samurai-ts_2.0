@@ -9,13 +9,13 @@ import {
 import {StateType} from "../../../Redux/redux-store";
 import {Profile} from "./Profile";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
+import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
 
 
 type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & { router: any }
 
 type mapStatePropsType = {
     profilePage: profilePageType
-    isAuth:boolean
 }
 
 type mapDispatchPropsType = {
@@ -60,15 +60,14 @@ export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
 const mapStateToProps = (state: StateType): mapStatePropsType => {
     return {
         profilePage: state.profilePage,
-        isAuth: state.auth.isAuth
     }
 }
 
 
 let WithUrlDataContainerComponent = withRouter(ProfileAPI)
 
-export const ProfileContainer = connect<mapStatePropsType, mapDispatchPropsType, any, StateType>(mapStateToProps, {
+export const ProfileContainer = WithAuthRedirect(connect<mapStatePropsType, mapDispatchPropsType, any, StateType>(mapStateToProps, {
     addPost,
     updateNewPostText,
     isProfileThunkCreator
-})(WithUrlDataContainerComponent)
+})(WithUrlDataContainerComponent))
