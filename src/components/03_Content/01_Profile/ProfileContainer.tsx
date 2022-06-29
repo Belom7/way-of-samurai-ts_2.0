@@ -10,6 +10,7 @@ import {StateType} from "../../../Redux/redux-store";
 import {Profile} from "./Profile";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & { router: any }
@@ -63,11 +64,12 @@ const mapStateToProps = (state: StateType): mapStatePropsType => {
     }
 }
 
-
-let WithUrlDataContainerComponent = withRouter(ProfileAPI)
-
-export const ProfileContainer = WithAuthRedirect(connect<mapStatePropsType, mapDispatchPropsType, any, StateType>(mapStateToProps, {
-    addPost,
-    updateNewPostText,
-    isProfileThunkCreator
-})(WithUrlDataContainerComponent))
+export const ProfileContainer = compose<React.ComponentType>(
+    WithAuthRedirect,
+    (connect<mapStatePropsType, mapDispatchPropsType, any, StateType>(mapStateToProps, {
+        addPost,
+        updateNewPostText,
+        isProfileThunkCreator
+    })),
+    withRouter
+)(ProfileAPI)

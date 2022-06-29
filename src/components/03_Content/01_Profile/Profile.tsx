@@ -12,7 +12,6 @@ type ProfilePropsType = {
 }
 
 export const Profile = ({addPost,profilePage, updateNewPostText}:ProfilePropsType) => {
-    debugger
     return (
         <div>
             <ProfileInfo profile={profilePage.profile}/>

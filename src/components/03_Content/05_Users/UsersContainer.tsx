@@ -10,6 +10,8 @@ import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/Preloader";
 import {Navigate} from "react-router-dom";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
 
 type UserPropsType = {
     getUsersThunkCreator: (currentPage: number) => void
@@ -76,6 +78,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-    getUsersThunkCreator, followUserThunkCreator, unFollowUserThunkCreator,
-})(UsersAPI)
+export const UsersContainer = compose<React.ComponentType>(
+    WithAuthRedirect,
+    connect(mapStateToProps, {getUsersThunkCreator, followUserThunkCreator, unFollowUserThunkCreator})
+)(UsersAPI)
