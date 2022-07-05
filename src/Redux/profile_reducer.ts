@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {usersApi} from "../api/api";
+import {profileApi, usersApi} from "../api/api";
 
 type contactsType = {
     facebook: string | undefined
@@ -28,6 +28,7 @@ export type profilePageType = {
     newMessage: string
     posts: { name: string, message: string, likeCount: number }[]
     profile: profileType | null
+    status: string
 }
 export type AddPostType = {
     type: 'ADD-POST'
@@ -38,9 +39,10 @@ export type ChangeNewPostTextType = {
     value: string
 }
 
-const ADD_POST = 'ADD-POST';
-const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
+const ADD_POST = 'ADD-POST'
+const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const SET_STATUS = 'SET_STATUS'
 
 let initialState: profilePageType = {
     newMessage: '',
@@ -51,7 +53,8 @@ let initialState: profilePageType = {
         {name: 'Alex', message: 'perfecto!', likeCount: 50},
         {name: 'Gera', message: 'rrrr!', likeCount: 50},
     ],
-    profile: null
+    profile: null,
+    status: ''
 }
 
 export const profileReducer = (state: profilePageType = initialState, action: generalType) => {
@@ -72,6 +75,10 @@ export const profileReducer = (state: profilePageType = initialState, action: ge
             return {
                 ...state, profile: action.payload.profile
             }
+        case SET_STATUS:
+            return {
+                ...state, status: action.payload.status
+            }
         default:
             return state
     }
@@ -80,10 +87,12 @@ export const profileReducer = (state: profilePageType = initialState, action: ge
 type generalType = AddPostACType
     | UpdateNewPostTextACType
     | setUserProfile
+    | setStatusType
 
 type AddPostACType = ReturnType<typeof addPost>
 type UpdateNewPostTextACType = ReturnType<typeof updateNewPostText>
 type setUserProfile = ReturnType<typeof setUserProfile>
+type setStatusType = ReturnType<typeof setStatus>
 
 export const addPost = (newMessage: string): AddPostType => {
     return {
@@ -105,10 +114,34 @@ export const setUserProfile = (profile: profileType) => {
         }
     } as const
 }
+export const setStatus = (status: string) => {
+    return {
+        type: SET_STATUS,
+        payload: {
+            status
+        }
+    } as const
+}
 
 export const isProfileThunkCreator = (userID: number) => (dispatch: Dispatch) => {
     usersApi.getProfile(userID)
         .then(data => {
             dispatch(setUserProfile(data))
+        })
+}
+
+export const getStatus = (userID: number) => (dispatch: Dispatch) => {
+    profileApi.getStatus(userID)
+        .then(res => {
+            dispatch(setStatus(res.data))
+        })
+}
+
+export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+    profileApi.updateStatus(status)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setStatus(res.data))
+            }
         })
 }

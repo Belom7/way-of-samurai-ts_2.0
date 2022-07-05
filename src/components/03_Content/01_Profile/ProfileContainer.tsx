@@ -2,9 +2,9 @@ import React from 'react';
 import cl from './Profile.module.css'
 import {connect} from "react-redux";
 import {
-    addPost, isProfileThunkCreator,
+    addPost, getStatus, isProfileThunkCreator,
     profilePageType,
-    updateNewPostText
+    updateNewPostText, updateStatus
 } from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/redux-store";
 import {Profile} from "./Profile";
@@ -16,13 +16,15 @@ import {compose} from "redux";
 type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & { router: any }
 
 type mapStatePropsType = {
-    profilePage: profilePageType
+    profilePage: profilePageType,
 }
 
 type mapDispatchPropsType = {
     addPost: (newMessage: string) => void
     updateNewPostText: (value: string) => void
     isProfileThunkCreator: (userID: number) => void
+    getStatus: (userId: number) => void
+    updateStatus: (status: string) => void
 }
 
 function withRouter<T extends unknown>(Component: React.ComponentType<T>) {
@@ -47,6 +49,7 @@ export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
             userId = 18086
         }
         this.props.isProfileThunkCreator(userId)
+        this.props.getStatus(userId)
     }
 
     render() {
@@ -69,7 +72,9 @@ export const ProfileContainer = compose<React.ComponentType>(
     (connect<mapStatePropsType, mapDispatchPropsType, any, StateType>(mapStateToProps, {
         addPost,
         updateNewPostText,
-        isProfileThunkCreator
+        isProfileThunkCreator,
+        getStatus,
+        updateStatus
     })),
     withRouter
 )(ProfileAPI)

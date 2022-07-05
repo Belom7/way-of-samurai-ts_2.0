@@ -7,9 +7,11 @@ import {ProfileStatus} from "./profileStatus/ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile:profileType | null
+    status:string
+    updateStatus: (status: string) => void
 }
 
-export const ProfileInfo = ({profile}:ProfileInfoPropsType) => {
+export const ProfileInfo = ({profile, status, updateStatus}:ProfileInfoPropsType) => {
     if(!profile){
         return <Preloader/>
     }
@@ -25,7 +27,7 @@ export const ProfileInfo = ({profile}:ProfileInfoPropsType) => {
             <div>
                 {profile.aboutMe}
             </div>
-            <ProfileStatus/>
+            <ProfileStatus status={status} updateStatus={updateStatus}/>
         </div>
     );
 };
