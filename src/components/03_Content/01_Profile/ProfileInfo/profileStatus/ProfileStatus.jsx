@@ -33,7 +33,7 @@ export class ProfileStatus extends Component {
         return (
             <div>
                 {!this.state.editMode ?
-                    <div><span onDoubleClick={this.ActivateEditMode}>{this.props.status}</span></div>
+                    <div><span onDoubleClick={this.ActivateEditMode}>{this.state.status || 'No status'}</span></div>
                     :
                     <div><input autoFocus={true} onBlur={this.DeActivateEditMode.bind(this)}
                                 onChange={this.onChangeHandler}
