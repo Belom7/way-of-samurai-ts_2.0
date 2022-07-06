@@ -20,7 +20,10 @@ export const LoginForm: React.FC<InjectedFormProps<formDataType>> = (props) => {
     )
 }
 
+const LoginReduxForm = reduxForm<formDataType>({form: 'login'})(LoginForm)
+
 export const Login = () => {
+
     const onSubmitHandler = (formData: formDataType) => {
         console.log(formData)
     }
@@ -33,6 +36,4 @@ export const Login = () => {
     );
 };
 
-
-const LoginReduxForm = reduxForm<formDataType>({form: 'login'})(LoginForm)
 
