@@ -17,10 +17,6 @@ export const ProfileInfo = ({profile, status, updateStatus}:ProfileInfoPropsType
     }
     return (
         <div>
-            {/*<div>*/}
-            {/*    <img alt={'images'}*/}
-            {/*         src={'https://rozabox.com/wp-content/uploads/2019/01/man-5846064_1920-735x400.jpg'}/>*/}
-            {/*</div>*/}
             <div>
                 <img className={cl.avatarProfile} src={profile.photos.small? profile.photos.small : noPhoto} alt={'userAvatar'}/>
             </div>

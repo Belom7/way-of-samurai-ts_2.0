@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     addPost, getStatus, isProfileThunkCreator,
     profilePageType,
-    updateNewPostText, updateStatus
+    updateStatus
 } from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/redux-store";
 import {Profile} from "./Profile";
@@ -21,7 +21,6 @@ type mapStatePropsType = {
 
 type mapDispatchPropsType = {
     addPost: (newMessage: string) => void
-    updateNewPostText: (value: string) => void
     isProfileThunkCreator: (userID: number) => void
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
@@ -71,7 +70,6 @@ export const ProfileContainer = compose<React.ComponentType>(
     WithAuthRedirect,
     (connect<mapStatePropsType, mapDispatchPropsType, any, StateType>(mapStateToProps, {
         addPost,
-        updateNewPostText,
         isProfileThunkCreator,
         getStatus,
         updateStatus

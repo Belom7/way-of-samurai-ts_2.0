@@ -25,7 +25,6 @@ export type profileType = {
     photos: photosType
 }
 export type profilePageType = {
-    newMessage: string
     posts: { name: string, message: string, likeCount: number }[]
     profile: profileType | null
     status: string
@@ -34,18 +33,12 @@ export type AddPostType = {
     type: 'ADD-POST'
     newMessage: string
 }
-export type ChangeNewPostTextType = {
-    type: 'CHANGE-NEW-POST-TEXT'
-    value: string
-}
 
 const ADD_POST = 'ADD-POST'
-const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
 let initialState: profilePageType = {
-    newMessage: '',
     posts: [
         {name: 'Maks', message: 'Hi people!', likeCount: 200},
         {name: 'Denis', message: 'x', likeCount: 20},
@@ -66,11 +59,6 @@ export const profileReducer = (state: profilePageType = initialState, action: ge
                 posts: [newPost, ...state.posts],
                 newMessage: ''
             }
-        case CHANGE_NEW_POST_TEXT :
-            return {
-                ...state,
-                newMessage: action.value
-            }
         case SET_USER_PROFILE:
             return {
                 ...state, profile: action.payload.profile
@@ -85,12 +73,10 @@ export const profileReducer = (state: profilePageType = initialState, action: ge
 }
 
 type generalType = AddPostACType
-    | UpdateNewPostTextACType
     | setUserProfile
     | setStatusType
 
 type AddPostACType = ReturnType<typeof addPost>
-type UpdateNewPostTextACType = ReturnType<typeof updateNewPostText>
 type setUserProfile = ReturnType<typeof setUserProfile>
 type setStatusType = ReturnType<typeof setStatus>
 
@@ -98,12 +84,6 @@ export const addPost = (newMessage: string): AddPostType => {
     return {
         type: ADD_POST,
         newMessage
-    } as const
-}
-export const updateNewPostText = (value: string): ChangeNewPostTextType => {
-    return {
-        type: CHANGE_NEW_POST_TEXT,
-        value
     } as const
 }
 export const setUserProfile = (profile: profileType) => {

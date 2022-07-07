@@ -1,6 +1,6 @@
 import {StateType} from "../../../Redux/redux-store";
 import {compose, Dispatch} from "redux";
-import {AddMessageAC, UpdateNewMessageTextAC} from "../../../Redux/dialogs_reducer";
+import {AddMessageAC} from "../../../Redux/dialogs_reducer";
 import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
 import React from "react";
@@ -13,10 +13,8 @@ const mapStateContainerToProps = (state: StateType) => {
 }
 const mapDispatchContainerToProps = (dispatch: Dispatch) => {
     return {
-        onChangeHandler: (value: string) => dispatch(UpdateNewMessageTextAC(value)),
-        onClickHandler: (newMessage: string) => dispatch(AddMessageAC(newMessage))
+        sendMessage: (newMessage: string) => dispatch(AddMessageAC(newMessage))
     }
-
 }
 
 export const DialogsContainer = compose<React.ComponentType>(

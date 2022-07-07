@@ -1,19 +1,13 @@
 export type dialogsPageType = {
     dialogsName: { id: number, name: string }[]
     messages: { message: string }[]
-    newMessageText: string
 }
 export type AddMessageType = {
     type: 'ADD-MESSAGE',
     newMessage: string
 }
-export type ChangeNewMessageTextType = {
-    type: 'CHANGE-NEW-MESSAGE-TEXT',
-    value: string
-}
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
 
 let initialState: dialogsPageType = {
     dialogsName: [
@@ -29,8 +23,7 @@ let initialState: dialogsPageType = {
         {message: 'Хо-хо-хо!'},
         {message: 'Ничего страшного!'},
         {message: '.........'}
-    ],
-    newMessageText: ''
+    ]
 }
 
 export const dialogsReducer = (state: dialogsPageType = initialState, action: generalType) => {
@@ -40,23 +33,14 @@ export const dialogsReducer = (state: dialogsPageType = initialState, action: ge
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessageText: ''
-            }
-        case
-        CHANGE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.value
             }
         default :
             return state
     }
 }
 type generalType = AddMessageACType
-    | UpdateNewMessageTextACType
 
 type AddMessageACType = ReturnType<typeof AddMessageAC>
-type UpdateNewMessageTextACType = ReturnType<typeof UpdateNewMessageTextAC>
 
 export const AddMessageAC = (newMessage: string): AddMessageType => {
     return {
@@ -64,9 +48,4 @@ export const AddMessageAC = (newMessage: string): AddMessageType => {
         newMessage
     } as const
 }
-export const UpdateNewMessageTextAC = (value: string): ChangeNewMessageTextType => {
-    return {
-        type: CHANGE_NEW_MESSAGE_TEXT,
-        value
-    } as const
-}
+
