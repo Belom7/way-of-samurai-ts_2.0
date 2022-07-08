@@ -1,5 +1,8 @@
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
+import {ThunkDispatch} from "redux-thunk";
 import {AuthApi} from "../api/api";
+import {StateType} from "./redux-store";
+
 
 export type authType = {
     email: string | null,
@@ -51,6 +54,26 @@ export const authMeThunkCreator = () => (dispatch: Dispatch) => {
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(setUserData(data.data))
+            }
+        })
+}
+
+
+export const login = (email: any, password: any, rememberMe: boolean) => (dispatch: ThunkDispatch<StateType, undefined, AnyAction>) => {
+    AuthApi.login(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(authMeThunkCreator())
+            }
+        })
+}
+
+export const logout = () => (dispatch: Dispatch<any>) => {
+    AuthApi.logout()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                const data = {id: null, email: null, login: null, isAuth: false}
+                dispatch(setUserData(data))
             }
         })
 }

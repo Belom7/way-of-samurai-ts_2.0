@@ -1,13 +1,14 @@
 import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {authMeThunkCreator} from "../../Redux/auth_reducer";
+import {authMeThunkCreator, logout} from "../../Redux/auth_reducer";
 import {StateType} from "../../Redux/redux-store";
 
 type HeaderPropsType = {
     authMeThunkCreator: () => void
     isAuth: boolean
     login: string | null
+    logout:()=>void
 }
 
 export class HeaderAPI extends React.Component<HeaderPropsType> {
@@ -18,7 +19,7 @@ export class HeaderAPI extends React.Component<HeaderPropsType> {
 
     render() {
         return (
-            <Header isAuth={this.props.isAuth} login={this.props.login}/>
+            <Header isAuth={this.props.isAuth} login={this.props.login} logout={this.props.logout}/>
         );
     }
 }
@@ -30,5 +31,5 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export const HeaderContainer = connect(mapStateToProps, {authMeThunkCreator})(HeaderAPI)
+export const HeaderContainer = connect(mapStateToProps, {authMeThunkCreator, logout})(HeaderAPI)
 

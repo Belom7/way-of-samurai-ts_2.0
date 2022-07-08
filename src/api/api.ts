@@ -25,26 +25,26 @@ export const usersApi = {
                 return response.data
             })
     },
-    getProfile(userID:number){
+    getProfile(userID: number) {
         console.warn('Obsolete method. Please ProfileAPI object')
         return profileApi.getProfile(userID)
     }
 }
 export const profileApi = {
-    getProfile(userID:number){
+    getProfile(userID: number) {
         return instance.get(`profile/${userID}`)
             .then(response => {
                 return response.data
             })
     },
-    getStatus(userID:number){
+    getStatus(userID: number) {
         return instance.get(`/profile/status/${userID}`)
             .then(response => {
                 return response
             })
     },
-    updateStatus(status:string){
-        return instance.put(`/profile/status/`,{status})
+    updateStatus(status: string) {
+        return instance.put(`/profile/status/`, {status})
     }
 }
 export const AuthApi = {
@@ -54,4 +54,16 @@ export const AuthApi = {
                 return response.data
             })
     },
+    login(email: any, password: any, rememberMe: boolean = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
+            .then(response => {
+                return response
+            })
+    },
+    logout() {
+        return instance.delete(`auth/login`)
+            .then(response => {
+                return response
+            })
+    }
 }
