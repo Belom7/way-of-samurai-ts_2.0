@@ -17,6 +17,8 @@ type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & { router: 
 
 type mapStatePropsType = {
     profilePage: profilePageType,
+    authorizedUserId: number | null,
+    isAuth: boolean
 }
 
 type mapDispatchPropsType = {
@@ -45,7 +47,7 @@ export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
     componentDidMount() {
         let userId = this.props.router.params.userId
         if (!userId) {
-            userId = 18086
+            userId = this.props.authorizedUserId
         }
         this.props.isProfileThunkCreator(userId)
         this.props.getStatus(userId)
@@ -63,6 +65,8 @@ export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
 const mapStateToProps = (state: StateType): mapStatePropsType => {
     return {
         profilePage: state.profilePage,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth,
     }
 }
 

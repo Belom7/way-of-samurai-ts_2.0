@@ -2,6 +2,7 @@ import {AnyAction, Dispatch} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AuthApi} from "../api/api";
 import {StateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 
 export type authType = {
@@ -64,6 +65,9 @@ export const login = (email: any, password: any, rememberMe: boolean) => (dispat
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(authMeThunkCreator())
+            } else {
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
 }
