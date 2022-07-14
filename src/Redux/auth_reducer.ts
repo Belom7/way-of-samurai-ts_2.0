@@ -1,7 +1,7 @@
 import {AnyAction, Dispatch} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AuthApi} from "../api/api";
-import {StateType} from "./redux-store";
+import {StateType, TypedDispatch} from "./redux-store";
 import {stopSubmit} from "redux-form";
 
 
@@ -21,7 +21,7 @@ let initialState: authType = {
 
 const SET_USER_DATA = 'SET_USER_DATA '
 
-export const authReducer = (state: authType = initialState, action: generalType): authType => {
+export const authReducer = (state: authType = initialState, action: AuthReducerActionsType): authType => {
 
     switch (action.type) {
         case SET_USER_DATA:
@@ -36,7 +36,7 @@ export const authReducer = (state: authType = initialState, action: generalType)
 }
 
 
-type generalType = setUserDataType
+export type AuthReducerActionsType = setUserDataType
 
 type setUserDataType = ReturnType<typeof setUserData>
 
@@ -50,13 +50,15 @@ export const setUserData = (data: authType) => {
     } as const
 }
 
-export const authMeThunkCreator = () => (dispatch: Dispatch) => {
-    AuthApi.authMe()
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserData(data.data))
-            }
-        })
+export const authMeThunkCreator = () => {
+    return (dispatch: TypedDispatch) => {
+        return AuthApi.authMe()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setUserData(data.data))
+                }
+            })
+    };
 }
 
 

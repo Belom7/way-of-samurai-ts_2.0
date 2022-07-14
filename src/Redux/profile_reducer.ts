@@ -50,7 +50,7 @@ let initialState: profilePageType = {
     status: ''
 }
 
-export const profileReducer = (state: profilePageType = initialState, action: generalType) => {
+export const profileReducer = (state: profilePageType = initialState, action: ProfileReducerActionsType) => {
     switch (action.type) {
         case ADD_POST :
             let newPost = {name: 'NEW', message: action.newMessage, likeCount: 10}
@@ -72,7 +72,7 @@ export const profileReducer = (state: profilePageType = initialState, action: ge
     }
 }
 
-type generalType = AddPostACType
+export type ProfileReducerActionsType = AddPostACType
     | setUserProfile
     | setStatusType
 

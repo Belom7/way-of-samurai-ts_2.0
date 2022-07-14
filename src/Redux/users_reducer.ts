@@ -36,7 +36,7 @@ let initState: UsersPageType = {
     isDisabled: []
 }
 
-export const usersReducer = (state: UsersPageType = initState, action: generalType): UsersPageType => {
+export const usersReducer = (state: UsersPageType = initState, action: UsersReducerActionsType): UsersPageType => {
     switch (action.type) {
         case FOLLOW :
             return {
@@ -78,7 +78,7 @@ export const usersReducer = (state: UsersPageType = initState, action: generalTy
     }
 }
 
-type generalType = followACType
+export type UsersReducerActionsType = followACType
     | unfollowACType
     | setUsersACType
     | setPageSizeACType

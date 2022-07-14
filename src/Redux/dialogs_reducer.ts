@@ -26,7 +26,7 @@ let initialState: dialogsPageType = {
     ]
 }
 
-export const dialogsReducer = (state: dialogsPageType = initialState, action: generalType) => {
+export const dialogsReducer = (state: dialogsPageType = initialState, action: DialogsReducerActionsType) => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage = {message: action.newMessage}
@@ -38,7 +38,7 @@ export const dialogsReducer = (state: dialogsPageType = initialState, action: ge
             return state
     }
 }
-type generalType = AddMessageACType
+export type DialogsReducerActionsType = AddMessageACType
 
 type AddMessageACType = ReturnType<typeof AddMessageAC>
 

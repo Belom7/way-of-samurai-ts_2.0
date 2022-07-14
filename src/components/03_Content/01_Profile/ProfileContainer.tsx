@@ -8,9 +8,10 @@ import {
 } from "../../../Redux/profile_reducer";
 import {StateType} from "../../../Redux/redux-store";
 import {Profile} from "./Profile";
-import {useNavigate, useParams, useLocation} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {withRouter} from "../../../hoc/WithRouter";
+import {NavLink} from "react-router-dom";
 
 
 type ProfileAPIPropsType = mapStatePropsType & mapDispatchPropsType & { router: any }
@@ -28,19 +29,8 @@ type mapDispatchPropsType = {
     updateStatus: (status: string) => void
 }
 
-function withRouter<T extends unknown>(Component: React.ComponentType<T>) {
-    return (props: T) => {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{location, navigate, params}}
-            />
-        );
-    }
-}
+
+
 
 export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
 
@@ -48,6 +38,10 @@ export class ProfileAPI extends React.Component<ProfileAPIPropsType> {
         let userId = this.props.router.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
+            // if(!userId){
+            //     this.props.history.push()
+            //     return <NavLink to={'/Login'}/>
+            // }
         }
         this.props.isProfileThunkCreator(userId)
         this.props.getStatus(userId)
