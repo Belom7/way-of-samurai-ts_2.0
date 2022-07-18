@@ -12,6 +12,7 @@ import {Preloader} from "../../common/preloader/Preloader";
 import {Navigate} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import {currentPage, isAuth, isDisabled, pageSize, totalUserCount, usersPage} from "../../../Redux/users-selectors";
 
 type UserPropsType = {
     getUsersThunkCreator: (currentPage: number) => void
@@ -69,12 +70,12 @@ export class UsersAPI extends React.Component<UserPropsType> {
 
 const mapStateToProps = (state: StateType) => {
     return {
-        usersPage: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalUserCount: state.usersPage.totalUserCount,
-        currentPage: state.usersPage.currentPage,
-        isDisabled: state.usersPage.isDisabled,
-        isAuth: state.auth.isAuth
+        usersPage: usersPage(state),
+        pageSize: pageSize(state),
+        totalUserCount: totalUserCount(state),
+        currentPage: currentPage(state),
+        isDisabled: isDisabled(state),
+        isAuth: isAuth(state)
     }
 }
 

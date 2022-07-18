@@ -156,6 +156,7 @@ export const setIsDisabled = (id: number, isDisabled: boolean) => {
 
 export const getUsersThunkCreator = (currentPage: number) => (dispatch: Dispatch) => {
     dispatch(setIsLoader(true))
+    dispatch(setCurrentPage(currentPage))
     usersApi.getUsers(currentPage)
         .then(data => {
             dispatch(setUsers(data.items))
